@@ -6,6 +6,7 @@
 \usepackage{setspace}
 \usepackage{graphicx}
 \usepackage{booktabs}
+\usepackage{array}
 \usepackage{float}
 \usepackage{hyperref}
 \usepackage{titlesec}
@@ -62,6 +63,8 @@
   \chapter*{#1}%
   \addcontentsline{toc}{chapter}{#1}%
 }
+
+\renewcommand{\bibname}{References}
 
 \newcommand{\InstitutionHeader}{%
   \begin{center}
@@ -309,137 +312,296 @@ project and the department's requirements.
 
 \chapter{Literature Survey}
 
-\noindent\textbf{Formatting sample only --- replace before submission.}
-This chapter should review research and technical material directly relevant
-to the selected project. A well-structured survey groups sources by topic,
-compares their approaches, and explains how the review informs the project
-design. Add verified citations and a bibliography once the sources have been
-selected; no reference entries are fabricated in this formatting sample.
+\section{From Cloud AI to Edge Intelligence}
 
-\section{Edge Computing and AI}
+The reviewed literature positions distributed edge AI as a response to the
+limits of centralised cloud processing. Edge AI performs AI computation near
+the user at the network edge rather than in a centralised data centre; this
+shift has been enabled by improvements in AI efficiency, the proliferation of
+IoT devices, and the growth of edge computing. Zhou et al.\ describe edge
+intelligence as extending AI to the ``last mile'' for mobile and IoT devices
+that generate data at the edge. Deng et al.\ distinguish AI for edge from
+AI on edge, with the latter covering model training and inference on edge
+devices \cite{deng2019}. The term ``edge'' has no universally accepted
+definition; its relation to cloud computing depends on proximity, capacity,
+and device heterogeneity \cite{deng2019}.
 
-Introduce the concepts required to understand the project. Define important
-terms consistently and distinguish background information from the
-contributions made by the project.
+\section{End-Edge-Cloud Architectures}
 
-\section{Comparison of Existing Approaches}
+A common architectural pattern distributes processing across end devices,
+edge servers, and the cloud. End devices handle lightweight local
+computation, while edge servers provide nearby, more capable resources.
+The literature distinguishes the complementary roles of AI for edge and AI
+on edge, and describes orchestration of heterogeneous on-device, edge,
+and cloud resources for distributed AI. Collaborative learning across
+cloud and edge resources is also studied \cite{deng2019}. Hu et al.\ describe
+a distributed edge-AI scheduler that places application tasks across
+heterogeneous nodes while accounting for changing system conditions
+\cite{hu2023}.
 
-Use a consistent basis for comparing related work, such as deployment
-setting, processing location, evaluation method, and stated limitations.
-Support each comparison with an appropriate source.
+\section{Distributed Training: Federated Learning}
 
-When several approaches are discussed, organize them around common themes
-rather than presenting a sequence of unrelated summaries. A comparison table
-can help readers see which assumptions and evaluation settings differ across
-the reviewed work.
+Federated learning (FL) trains local models on multiple clients without
+collecting raw user data at a central data centre. Federated learning
+and knowledge distillation are described as training approaches, while model
+splitting and partitioning support inference. FL challenges include
+statistical heterogeneity, communication cost, resource allocation, and
+privacy and security. Communication can dominate computation when local
+datasets are small and participant processors are comparatively fast
+\cite{deng2019}.
 
-\section{Research Gap}
+Communication efficiency, resource allocation, and data heterogeneity are
+recurring concerns in distributed edge learning \cite{deng2019}.
 
-Conclude the survey by identifying the specific question that remains
-relevant to this project. The gap should be supported by the reviewed sources
-and should lead directly to the objectives and design choices described in
-the following chapters.
+\section{Distributed Inference: Partitioning and Collaboration}
 
-\chapter{System Design and Methodology}
+Model-partition methods split a deep neural network between a device and
+server based on transmission latency and device energy. Early-exit methods
+can reduce communication when intermediate features are sufficient.
+DistrEdge applies deep reinforcement learning to distribute CNN inference
+across heterogeneous IoT edge devices and reports a 1.1--3$\times$ speedup
+over the compared methods \cite{hou2022}. Edge-intelligence surveys also
+cover the complementary roles of distributed training and inference
+\cite{deng2019}.
 
-\noindent\textbf{Formatting sample only --- replace before submission.}
-This chapter demonstrates how a figure, numbered sections, and a short
-procedural list can be presented. The diagram below is a generic illustrative
-workflow and does not describe an implemented system.
+\section{Communication Efficiency}
 
-\section{Conceptual Workflow}
+Communication is a central bottleneck across training and inference. What is
+transmitted affects per-round overhead and the number of communication
+rounds. Quantisation and pruning, together with in-network computation, are
+discussed as ways to address communication cost. Computation-intensive
+inference may require task splitting across edge devices and servers, making
+communication efficiency especially important \cite{deng2019,hou2022}.
 
-\begin{figure}[H]
-  \centering
-  \setlength{\fboxsep}{8pt}
-  \resizebox{\textwidth}{!}{%
-    \begin{tabular}{c@{\hspace{0.5cm}$\longrightarrow$\hspace{0.5cm}}c@{\hspace{0.5cm}$\longrightarrow$\hspace{0.5cm}}c}
-      \fbox{\parbox[c][1.1cm][c]{0.22\textwidth}{\centering Data\\source}} &
-      \fbox{\parbox[c][1.1cm][c]{0.22\textwidth}{\centering Edge\\processing}} &
-      \fbox{\parbox[c][1.1cm][c]{0.22\textwidth}{\centering Application\\output}}
-    \end{tabular}%
-  }
-  \caption{Illustrative workflow used only to demonstrate figure formatting.}
-  \label{fig:sample-workflow}
-\end{figure}
+\section{Heterogeneity, Non-IID Data, and Stragglers}
 
-Figure~\ref{fig:sample-workflow} is a placeholder example. Replace it with a
-diagram that accurately represents the proposed or implemented system.
+FL over edge nodes must address device heterogeneity, non-independent and
+identically distributed (non-IID) data, and limited communication resources.
+Synchronous FL can wait for the slowest worker, while asynchronous FL may
+cause frequent model transfers. The straggler effect can limit
+synchronous training time. Non-IID and imbalanced data can cause local
+updates to drift, resulting in instability and slower convergence; system
+heterogeneity can also lead to stragglers and dropouts. Participant
+selection is one proposed mitigation, while edge-assisted architectures,
+data augmentation, and mediator-based rescheduling are reported as approaches
+to non-IID bias. These challenges are part of the broader edge-intelligence
+research landscape \cite{deng2019}.
 
-\section{Sample Method}
+\section{Privacy and Security}
 
-An example methodology outline is:
+FL does not eliminate privacy risks: a malicious participant may infer
+sensitive attributes from shared models, and systems may be vulnerable to
+data or model poisoning. One example in the reviewed literature reports
+inferring whether an
+individual's input appeared in a gender-classifier training set with up to
+90\% accuracy. Other surveyed threats include honest-but-curious servers,
+free-riding participants, poisoning, and model inversion.
+Inference attacks may recover training samples; differential privacy is one
+mitigation, with a possible trade-off against model performance.
+Surveys classify poisoning and inference attacks and identify communication
+blockage, poisoning, and backdoor attacks among high-priority threats.
+Privacy-preserving cloud-edge-end architectures include encrypted or
+anonymised protocols and multi-centre hierarchical FL. Blockchain-based
+FL is also discussed as a way to remove a central aggregator.
+
+\section{Energy and Hardware Constraints}
+
+Latency, energy efficiency, and computation or memory footprint are
+important evaluation metrics; latency-sensitive applications may have
+constraints around 100 ms. Energy-efficient edge training is another
+motivation in the literature; one cited example uses AlphaGo's reported
+requirement of 280 GPUs and a \$3,000 electricity cost per game to illustrate
+the cost of computation. Reported Raspberry Pi 5 measurements for
+MobileNetV3-Small include 2.14--2.17 ms latency, approximately 2.55 W net
+power, and 5.5 mJ per inference. Reported ResNet-18 measurements include
+12.9--14.1 ms, 2.4--2.8 W, and 31--39 mJ per inference.
+
+Other reported results include up to 10 W for a Jetson Nano GPU configuration,
+approximately 5 W for a Google Coral TPU, and approximately 2 W for an
+Intel NCS2 accelerator. Reported power values for an Arduino Nano,
+Raspberry Pi, and idle Jetson Nano are 0.17 W, 3.5 W, and 1.3--1.6 W,
+respectively. Another comparison reports a Jetson Nano approximately
+three times faster and 1.67 times lower in energy than a Raspberry Pi for
+its network configuration. These results use different platforms,
+workloads, and protocols and are indicative rather than directly comparable.
+
+\section{Application Domains}
+
+Reviewed applications include autonomous and connected vehicles, smart
+homes, industrial automation, healthcare, surveillance, real-time gaming,
+smart factories, and precision-agriculture pest detection.
+
+\chapter{Methodology}
+
+Because the project remains at the learning and literature-review stage and
+the application is undecided, the methodology below is proposed rather than
+executed.
+
+\section{Review Protocol}
+
+The preliminary study follows a structured literature-review approach.
+Research questions are modelled on existing reviews of computing, storage,
+and communication technologies in distributed edge AI and optimisation
+along the edge-fog-cloud data path. The approach also draws on
+systematic reviews that develop taxonomies of edge AI systems and
+examine cloud-edge AI integration \cite{deng2019,hu2023}. Sources are selected from academic
+databases for relevance to architecture, training, inference, communication,
+heterogeneity, privacy and security, energy, and applications.
+
+\section{Analytical Framework}
+
+Sources are synthesised across eight themes: definition and motivation;
+architecture; training; inference; communication; heterogeneity;
+privacy and security; and energy and hardware. This structure is intended
+to help map a later application choice to the relevant literature.
+
+\section{Proposed Feasibility-Assessment Framework}
+
+A multi-criteria assessment is proposed using latency, energy efficiency,
+and computation and memory footprint, extended with bandwidth
+sensitivity, scalability, and cost. Candidate platforms could be
+compared using a reproducible benchmarking approach that measures latency,
+throughput, power, and energy.
+
+\section{Proposed Technical Methodology}
+
+\begin{samepage}
+Two possible implementation directions are proposed for a later phase:
 \begin{enumerate}
-  \item Define the application requirements and system constraints.
-  \item Select the devices, models, and workload distribution strategy.
-  \item Implement the design and document the experimental setup.
-  \item Evaluate the system using clearly defined metrics.
+  \item \textbf{Partitioned collaborative inference:} split a model by layer
+  or horizontally across devices and exchange intermediate outputs,
+  following published partitioning schemes \cite{hou2022}.
+  \item \textbf{Federated training:} participants train local models and
+  share model updates through an aggregation server, as surveyed for mobile
+  edge networks and edge training \cite{deng2019}.
 \end{enumerate}
 
-\section{Evaluation Plan}
-
-The evaluation plan should describe the test environment, input workload,
-baseline, and measurement procedure. Define each metric before reporting
-results so that readers can interpret the measurements consistently.
+Neither direction has been implemented; both remain proposals for subsequent
+work.
+\end{samepage}
 
 \chapter{Results and Discussion}
 
-\noindent\textbf{Formatting sample only --- replace before submission.}
-Present the actual observations from the completed experiments in this
-chapter. State the test conditions, report units, and explain the limitations
-of the evaluation. The entries in Table~\ref{tab:sample-results} are
-intentionally marked as placeholders and are not measured results.
+\noindent
+As this is a preliminary, literature-stage study, the results are the
+outcomes of the review and feasibility synthesis rather than experimental
+findings.
 
-\section{Illustrative Results Table}
+\section{Literature Synthesis}
+
+The reviewed literature converges on layered end-edge-cloud architectures,
+with federated training and partitioned or collaborative inference as two
+major technical families \cite{deng2019,hou2022}. Communication efficiency
+is a recurring bottleneck across both.
+
+\section{Feasibility Indications}
+
+The literature suggests that distributed edge AI can support latency-
+sensitive and privacy-sensitive workloads, while remaining constrained by
+communication and energy. In one reported setup, edge-server inference
+increased from 0.123 seconds at 1 Mbps to 2.317 seconds at 50 kbps, while a
+mobile device took more than 2 seconds. Hardware energy figures vary
+substantially by device and workload.
 
 \begin{table}[H]
   \centering
-  \caption{Placeholder results table for demonstrating layout only.}
-  \label{tab:sample-results}
-  \begin{tabular}{lcc}
+  \small
+  \caption{Hardware metrics reported in the reviewed literature.}
+  \label{tab:reported-hardware-metrics}
+  \begin{tabular}{>{\raggedright\arraybackslash}p{0.27\textwidth}
+                  >{\raggedright\arraybackslash}p{0.24\textwidth}
+                  >{\raggedright\arraybackslash}p{0.37\textwidth}}
     \toprule
-    Evaluation case & Metric 1 & Metric 2 \\
+    Platform or workload & Metric & Reported value \\
     \midrule
-    Case A & TBD & TBD \\
-    Case B & TBD & TBD \\
+    Raspberry Pi 5, MobileNetV3-Small & Latency, net power, energy &
+      2.14--2.17 ms; about 2.55 W; 5.5 mJ per inference \\
+    Raspberry Pi 5, ResNet-18 & Latency, net power, energy &
+      12.9--14.1 ms; 2.4--2.8 W; 31--39 mJ per inference \\
+    NVIDIA Jetson Nano & Peak power & Up to 10 W \\
+    Google Coral TPU & Power & About 5 W \\
+    Intel NCS2 and Raspberry Pi 3B+ & Accelerator and host power &
+      About 2 W and 3 W \\
+    Arduino Nano & Power & 0.17 W \\
+    Raspberry Pi & Power & 3.5 W \\
+    NVIDIA Jetson Nano & Idle power & 1.3--1.6 W \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-\section{Discussion}
+Partitioned collaborative inference is reported to achieve 1.1--3$\times$
+speedups over the methods compared in DistrEdge \cite{hou2022}. A communication-
+efficient FL method reports up to 87\% improvement in convergence time and
+up to 3.6\% improvement in accuracy relative to standard FL. These
+results come from different hardware, workloads, and measurement protocols
+and should not be compared directly.
 
-Replace the placeholder table with measured data and discuss the observed
-trends in relation to the project objectives. Avoid drawing conclusions that
-are not supported by the evaluation.
+\section{Discussion and Limitations}
 
-\section{Limitations}
+The synthesis indicates a trade-off between latency and energy on one side
+and communication cost on the other. Moving computation closer to the data
+may reduce latency and bandwidth pressure, but lower edge computing
+capacity and device heterogeneity can require model partitioning,
+compression, or collaborative execution. Non-IID data and
+slow or unreliable nodes can create stragglers and dropouts.
+Privacy and security risks, including inference and poisoning attacks, also
+constrain how data and model updates are handled.
 
-Document constraints that may affect interpretation, such as the size of the
-test workload, the devices available, or the duration of the experiments.
-Explain how these constraints were handled and avoid generalizing beyond the
-conditions that were tested.
+No implementation or measurements have been carried out; this feasibility
+assessment relies entirely on published results. Those results use different
+platforms, workloads, and measurement setups. Even power-measurement
+protocols vary; one study reports reducing measurement uncertainty by
+factors of 6 and 12 on two device families relative to an established
+protocol. Direct cross-study comparison of energy values must therefore
+be treated cautiously. The field is still developing, and the definition of
+``edge'' remains unsettled. Open challenges include resource
+constraints, security threats, scalability, and communication overhead.
 
 \chapter{Conclusion and Future Work}
 
-\noindent\textbf{Formatting sample only --- replace before submission.}
-The final chapter should summarize what was completed and relate the main
-conclusions to the stated objectives. It should distinguish demonstrated
-outcomes from proposed future work. This sample contains no project-specific
-findings.
+\noindent
+This preliminary report has reviewed distributed edge AI and assessed
+feasibility at a conceptual level. The literature describes a shift from
+centralised cloud AI toward layered end-edge-cloud architectures,
+with federated learning and collaborative DNN partitioning as major
+technical families. Potential suitability for latency- and
+privacy-sensitive applications is bounded by communication cost,
+device and data heterogeneity, energy constraints, and
+privacy and security risks \cite{deng2019,hou2022}.
 
-Keep the conclusion focused: briefly restate the problem, summarize the
-approach, and state only findings established by the report. Avoid introducing
-new evidence or claims that have not been discussed in the results.
-
-\section{Future Work}
-
-Possible future-work topics should follow from the actual results and
-limitations of the project. Replace this paragraph with relevant next steps
-after the evaluation is complete.
+Because the application and implementation remain undecided, the next
+phase is to select a specific application and platform using the proposed
+review protocol and feasibility framework, then design an implementation
+for future evaluation. No implementation or experimental result is claimed
+here.
 
 \frontmatterchapter{References}
 
-[Add the verified references used in the report. Apply the citation style
-required by the department.]
+\begin{thebibliography}{9}
+  \bibitem{hu2023}
+  Fei Hu, Kunal Mehta, Shivakant Mishra, and Mohammad AlMutawa.
+  \textit{Distributed Edge AI Systems}. In Proceedings of the 2023 IEEE/ACM
+  16th International Conference on Utility and Cloud Computing (UCC '23),
+  2023. \href{https://doi.org/10.1145/3603166.3632546}{DOI record}.\par
+  Local PDF: \path{references/distributed-edge-ai-systems-hu-et-al-2023.pdf}.
+
+  \bibitem{deng2019}
+  Shuiguang Deng, Hailiang Zhao, Weijia Fang, Jianwei Yin, Schahram
+  Dustdar, and Albert Y. Zomaya.
+  \textit{Edge Intelligence: The Confluence of Edge Computing and Artificial
+  Intelligence}. arXiv:1909.00560, 2019.
+  \href{https://arxiv.org/abs/1909.00560}{arXiv record}.\par
+  Local PDF: \path{references/edge-intelligence-deng-et-al-2019.pdf}.
+
+  \bibitem{hou2022}
+  Xueyu Hou, Yongjie Guan, Tao Han, and Ning Zhang.
+  \textit{DistrEdge: Speeding up Convolutional Neural Network Inference on
+  Distributed Edge Devices}. arXiv:2202.01699, 2022.
+  \href{https://arxiv.org/abs/2202.01699}{arXiv record}.\par
+  Local PDF: \path{references/distr-edge-hou-et-al-2022.pdf}.
+\end{thebibliography}
+
+The links above lead to the online publication records. Local copies are
+stored in the \path{references/} folder.
 
 \end{document}
