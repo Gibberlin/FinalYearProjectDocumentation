@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.7.6)  22 OCT 2026 00:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.7.6)  22 OCT 2026 01:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -394,7 +394,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line 115.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 115.
-<images/bvec_logo.png, id=131, 93.951pt x 95.922pt>
+<images/bvec_logo.png, id=135, 93.951pt x 95.922pt>
 File: images/bvec_logo.png Graphic file (type png)
 <use images/bvec_logo.png>
 Package pdftex.def Info: images/bvec_logo.png  used on input line 127.
@@ -422,7 +422,7 @@ Package pdftex.def Info: images/bvec_logo.png  used on input line 199.
 ]
 File: images/bvec_logo.png Graphic file (type png)
 <use images/bvec_logo.png>
-Package pdftex.def Info: images/bvec_logo.png  used on input line 220.
+Package pdftex.def Info: images/bvec_logo.png  used on input line 231.
 (pdftex.def)             Requested size: 97.56493pt x 99.61746pt.
  [4
 
@@ -459,36 +459,36 @@ Chapter 1.
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.353 
+l.379 
        [1
 
 
-] [2]
+] [2] [3]
 Chapter 2.
-[3
+[4
 
-] [4] [5]
+] [5] [6]
 Chapter 3.
-[6
+[7
 
-] [7]
+] [8]
 Chapter 4.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 552.
-[8
+(Font)              <10.95> on input line 689.
+[9
 
-] [9]
+] [10]
 Chapter 5.
-[10
+[11
 
-] [11
+] [12
 
 ]
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
- [12
+ [13
 
 ] (distributed_edge_ai_report.aux)
  ***********
@@ -496,20 +496,20 @@ LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
 Package rerunfilecheck Info: File `distributed_edge_ai_report.out' has not changed.
-(rerunfilecheck)             Checksum: D6D5A36AC9C0DEDFDF4A4F87C2AEA2D2;5525.
+(rerunfilecheck)             Checksum: 6BF91036EE03B322032F335354D06A72;5794.
  ) 
 Here is how much of TeX's memory you used:
- 12237 strings out of 467871
- 194199 string characters out of 5418377
- 657743 words of memory out of 5000000
- 40900 multiletter control sequences out of 15000+600000
+ 12245 strings out of 467871
+ 194353 string characters out of 5418377
+ 657746 words of memory out of 5000000
+ 40906 multiletter control sequences out of 15000+600000
  638454 words of font info for 62 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,10n,79p,1075b,577s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\RJDhu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1200.pk> <C:\Users\RJDhu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1200.pk> <C:\Users\RJDhu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1095.pk> <C:\Users\RJDhu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\RJDhu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk> <C:\Users\RJDhu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\RJDhu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\RJDhu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1440.pk> <C:\Users\RJDhu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1728.pk><C:/Users/RJDhu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on distributed_edge_ai_report.pdf (23 pages, 261564 bytes).
+Output written on distributed_edge_ai_report.pdf (24 pages, 272834 bytes).
 PDF statistics:
- 798 PDF objects out of 1000 (max. 8388607)
- 83 named destinations out of 1000 (max. 500000)
- 7430 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 824 PDF objects out of 1000 (max. 8388607)
+ 85 named destinations out of 1000 (max. 500000)
+ 7438 words of extra memory for PDF output out of 10000 (max. 10000000)
 
