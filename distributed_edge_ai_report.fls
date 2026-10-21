@@ -40,6 +40,8 @@ INPUT C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\tex\latex\graphics-def\pdftex
 INPUT C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\tex\latex\graphics-def\pdftex.def
 INPUT C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\tex\latex\booktabs\booktabs.sty
 INPUT C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\tex\latex\booktabs\booktabs.sty
+INPUT C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\tex\latex\tools\array.sty
+INPUT C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\tex\latex\tools\array.sty
 INPUT C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\tex\latex\float\float.sty
 INPUT C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\tex\latex\float\float.sty
 INPUT C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\tex\latex\hyperref\hyperref.sty
@@ -170,7 +172,6 @@ INPUT .\images\bvec_logo.png
 INPUT .\images\bvec_logo.png
 INPUT .\images\bvec_logo.png
 INPUT .\images\bvec_logo.png
-INPUT C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecti1200.tfm
 INPUT .\distributed_edge_ai_report.toc
 INPUT .\distributed_edge_ai_report.toc
 INPUT distributed_edge_ai_report.toc
@@ -183,9 +184,16 @@ INPUT .\distributed_edge_ai_report.lof
 INPUT .\distributed_edge_ai_report.lof
 INPUT distributed_edge_ai_report.lof
 OUTPUT distributed_edge_ai_report.lof
+INPUT C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr10.tfm
+INPUT C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmmi10.tfm
+INPUT C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmsy10.tfm
+INPUT C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecti1200.tfm
+INPUT C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ectt1200.tfm
 INPUT distributed_edge_ai_report.aux
 INPUT .\distributed_edge_ai_report.out
 INPUT .\distributed_edge_ai_report.out
+INPUT C:\Users\RJDhu\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ectt1200.pk
+INPUT C:\Users\RJDhu\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ectt1200.pk
 INPUT C:\Users\RJDhu\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecti1200.pk
 INPUT C:\Users\RJDhu\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecti1200.pk
 INPUT C:\Users\RJDhu\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1095.pk

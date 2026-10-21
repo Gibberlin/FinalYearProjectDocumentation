@@ -1,9 +1,8 @@
 # Distributed Edge Artificial Intelligence
 
 This file is the working content outline for the report. Draft project-specific
-text here, then transfer the approved material into
-`distributed_edge_ai_report.tex`. The current PDF includes formatting examples;
-replace those examples before submission. Do not present placeholder values as
+text here, then transfer approved material into
+`distributed_edge_ai_report.tex`. Do not present placeholder values as
 measured results.
 
 ## Details to confirm
@@ -31,12 +30,34 @@ measured results.
 
 ## Abstract
 
-[Write a concise summary of the project problem, objectives, approach,
-evaluation, and conclusions after those details are known.]
+Distributed Edge Artificial Intelligence (Edge AI) places artificial
+intelligence workloads across devices near data sources, edge servers, and
+cloud resources. This report presents a preliminary literature study of how
+such workloads can be distributed while accounting for communication,
+computing capacity, energy use, and privacy. A thematic review examines
+end-edge-cloud architectures, federated learning, collaborative inference,
+communication efficiency, resource heterogeneity, and security
+considerations. The reviewed work indicates that distributing computation
+closer to data can support responsive applications and reduce dependence on
+centralised processing, but the benefits depend on task placement, network
+conditions, and device capabilities. Federated training and partitioned
+inference are complementary approaches, each with trade-offs in
+communication, coordination, and resource requirements. This project remains
+at the literature-review and feasibility-assessment stage; no implementation
+or experimental measurements are claimed. Future work will select an
+application and platform, then evaluate an appropriate distributed-AI design
+using reproducible performance and energy measures.
 
 ## Acknowledgement
 
-[Write the acknowledgement based on the actual guidance and support received.]
+We would like to extend our sincere thanks to all those who helped us
+prepare this report. Without their guidance, support, cooperation, and
+encouragement, we would not have been able to complete it successfully. We
+express our sincere gratitude to our project guide,
+Mr. Rana Singha, for valuable guidance, support, and encouragement
+throughout this work. We also thank the faculty members of the Department of
+Computer Science & Engineering, Barak Valley Engineering College, for their
+suggestions and academic support.
 
 ## Chapter 1: Introduction
 

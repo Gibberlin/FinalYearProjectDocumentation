@@ -46,9 +46,9 @@
 \newcommand{\InstitutionName}{Barak Valley Engineering College}
 \newcommand{\InstitutionAddress}{Nirala, Sribhumi -- 788701, Assam}
 \newcommand{\GuideName}{Mr. Rana Singha}
-\newcommand{\GuideDesignation}{[Supervisor designation]}
-\newcommand{\SubmissionDate}{[Month--Year]}
-\newcommand{\AcademicSession}{[Academic session]}
+\newcommand{\GuideDesignation}{Assistant Professor, Department of Computer Science \& Engineering}
+\newcommand{\SubmissionDate}{2026}
+\newcommand{\AcademicSession}{2023--2027}
 \newcommand{\StudentNames}{%
   \begin{enumerate}\setlength{\itemsep}{2pt}\setlength{\topsep}{4pt}
     \item Anirbar Saikia
@@ -138,30 +138,32 @@
 
 \frontmatterchapter{Declaration}
 
-We, the students of \DepartmentName, \InstitutionName, declare that the work
-entitled ``\ReportTitle'' has been completed under the guidance of
-\GuideName, \GuideDesignation, \DepartmentName, \InstitutionName.
+We, the students of \DepartmentName, \InstitutionName, declare that the
+project report entitled \textbf{``\ReportTitle''} has been prepared under
+the guidance of \textbf{\GuideName}, \DepartmentName, \InstitutionName.
 
 \par\medskip
 
 The report has been prepared without resorting to plagiarism. We have adhered
-to the principles of academic honesty and integrity. No falsified or fabricated
-data have been presented in this report. Further, the matter embodied in this
-project report has not been submitted previously for the award of any degree
-or diploma.
+to the principles of academic honesty and integrity. No falsified or
+fabricated data have been presented in this report. Further, the matter
+embodied in this project report has not been submitted previously for the
+award of any degree or diploma.
 
-\vspace{1cm}
+\vspace{0.8cm}
 
 \noindent
-Anirbar Saikia\\[0.25cm]
-Avirup Roy\\[0.25cm]
-Hisbul Bahar Mazumdar\\[0.25cm]
-Ritesh Das\\[0.25cm]
+Anirbar Saikia\\[0.2cm]
+Avirup Roy\\[0.2cm]
+Hisbul Bahar Mazumdar\\[0.2cm]
+Ritesh Das\\[0.2cm]
 Syed Yashin Hussain
 
 \vfill
 
-Date: \rule{5cm}{0.4pt}\hfill Place: \rule{5cm}{0.4pt}
+\noindent
+Date: \rule{4cm}{0.4pt}\\[0.2cm]
+Place: \rule{4cm}{0.4pt}
 
 \clearpage
 \thispagestyle{plain}
@@ -237,29 +239,60 @@ Place: \rule{4cm}{0.4pt}\hfill\GuideDesignation
 \clearpage
 \frontmatterchapter{Abstract}
 
-\noindent\textbf{Formatting sample only --- replace before submission.}
-This sample abstract demonstrates the report's paragraph spacing and text
-width. Distributed Edge Artificial Intelligence studies how computation and
-learning tasks can be placed across devices near data sources and more
-centralized computing resources. The final abstract should briefly state the
-project problem, objectives, approach, evaluation method, and conclusions.
-
-\par\medskip
-\noindent\textit{Replace this sample with a concise abstract based on the
-completed project; do not treat this text as a project result.}
+Distributed Edge Artificial Intelligence (Edge AI) places artificial
+intelligence workloads across devices near data sources, edge servers, and
+cloud resources. This report presents a preliminary literature study of how
+such workloads can be distributed while accounting for communication,
+computing capacity, energy use, and privacy. A thematic review is used to
+examine end-edge-cloud architectures, federated learning, collaborative
+inference, communication efficiency, resource heterogeneity, and security
+considerations. The reviewed work indicates that distributing computation
+closer to data can support responsive applications and reduce dependence on
+centralised processing, but the benefits depend on task placement, network
+conditions, and device capabilities. Federated training and partitioned
+inference are identified as complementary approaches, each with trade-offs
+in communication, coordination, and resource requirements. The project
+remains at the literature-review and feasibility-assessment stage; no
+implementation or experimental measurements are claimed. Future work will
+select an application and platform, then evaluate an appropriate
+distributed-AI design using reproducible performance and energy measures.
 
 \clearpage
 \frontmatterchapter{Acknowledgement}
 
-\noindent\textbf{Formatting sample only --- replace before submission.}
-The authors would like to thank their supervisor, Mr. Rana Singha, for
-guidance during the project. We also acknowledge the support of the Department
-of Computer Science \& Engineering and everyone who contributed advice or
-feedback.
+\noindent
+We would like to extend our sincere thanks to all those who helped us
+prepare this report. Without their guidance, support, cooperation, and
+encouragement, we would not have been able to complete it successfully.
 
-\par\medskip
-\noindent\textit{Update this acknowledgement to reflect the actual
-contributions and permissions before submission.}
+\par\noindent
+\hspace*{1em}We express our sincere gratitude to our project guide,
+\textbf{\GuideName}, for valuable guidance, support, and encouragement
+throughout this work.
+
+\par\noindent
+\hspace*{1em}We also thank the faculty members of the Department of Computer
+Science \& Engineering, Barak Valley Engineering College, for their
+suggestions and academic support.
+
+\vspace{0.8cm}
+\begin{flushright}
+  \rule{4cm}{0.4pt}\\[-0.05cm]
+  Anirbar Saikia\\[0.5cm]
+  \rule{4cm}{0.4pt}\\[-0.05cm]
+  Avirup Roy\\[0.5cm]
+  \rule{4cm}{0.4pt}\\[-0.05cm]
+  Hisbul Bahar Mazumdar\\[0.5cm]
+  \rule{4cm}{0.4pt}\\[-0.05cm]
+  Ritesh Das\\[0.5cm]
+  \rule{4cm}{0.4pt}\\[-0.05cm]
+  Syed Yashin Hussain
+\end{flushright}
+
+\vfill
+\noindent
+Date: \rule{4cm}{0.4pt}\\[0.2cm]
+Place: \rule{4cm}{0.4pt}
 
 \clearpage
 \tableofcontents
@@ -273,12 +306,13 @@ contributions and permissions before submission.}
 
 \chapter{Introduction}
 
-\noindent\textbf{Formatting sample only --- replace before submission.}
-Artificial intelligence applications increasingly need to process information
-close to where it is produced. Distributed Edge Artificial Intelligence
-considers how data processing and model execution can be shared between
-resource-constrained edge devices and other computing nodes. This chapter
-introduces the topic and provides sample section styles for the report.
+Artificial intelligence applications increasingly need to process
+information close to where it is produced. Distributed Edge Artificial
+Intelligence studies how AI workloads can be placed across resource-
+constrained devices, nearby edge servers, and cloud infrastructure. This
+approach can reduce reliance on centralised processing, but it also raises
+challenges involving communication, available computing resources, energy,
+and coordination.
 
 \section{Background}
 
@@ -289,26 +323,33 @@ studying the design choices involved in distributing AI workloads.
 
 \section{Problem Statement}
 
-The project investigates how an AI workload can be organized across edge
-resources while accounting for device limitations and application
-requirements. The final problem statement should identify the specific
-application, constraints, and gap addressed by the project.
+This project examines the design choices involved in distributing AI
+workloads across edge resources. In particular, it considers how
+communication cost, device and data heterogeneity, energy constraints, and
+privacy requirements affect distributed training and inference. The current
+work is a literature review and feasibility assessment; a specific
+application and implementation platform remain to be selected.
 
 \section{Objectives}
 
-The following are sample objective statements; revise them to match the agreed
-project scope:
+The objectives of this preliminary study are:
 \begin{enumerate}
-  \item Study the key concepts and architectures used in distributed edge AI.
-  \item Define a suitable system design for the selected application.
-  \item Evaluate the design using project-specific metrics and experiments.
+  \item Review distributed edge-AI architectures and approaches to
+  federated training and collaborative inference.
+  \item Identify key challenges related to communication, heterogeneity,
+  privacy, energy, and available hardware resources.
+  \item Establish a feasibility-assessment framework to guide selection of
+  an application and platform for future implementation and evaluation.
 \end{enumerate}
 
 \section{Scope and Report Organization}
 
-This sample document uses five chapters to demonstrate the report structure.
-The final scope, chapter names, and organization should follow the actual
-project and the department's requirements.
+This report is organized into five chapters. Chapter 1 introduces the topic,
+problem, objectives, and scope. Chapter 2 reviews related work in distributed
+edge AI. Chapter 3 describes the literature-review protocol and proposed
+feasibility and technical approaches. Chapter 4 synthesizes the review
+findings and discusses feasibility and limitations. Chapter 5 presents the
+conclusions and proposed future work.
 
 \chapter{Literature Survey}
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.7.6)  22 OCT 2026 00:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.7.6)  22 OCT 2026 00:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -88,13 +88,22 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \@thisruleclass=\count289
 \@lastruleclass=\count290
 \@thisrulewidth=\dimen171
+) (C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
+Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
+\col@sep=\dimen172
+\ar@mcellbox=\box53
+\extrarowheight=\dimen173
+\NC@list=\toks21
+\extratabsurround=\skip51
+\backup@length=\skip52
+\ar@cellbox=\box54
 ) (C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count291
-\float@exts=\toks21
-\float@box=\box53
-\@float@everytoks=\toks22
-\@floatcapt=\box54
+\float@exts=\toks22
+\float@box=\box55
+\@float@everytoks=\toks23
+\@floatcapt=\box56
 ) (C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
 Package: hyperref 2025-07-12 v7.01o Hypertext links for LaTeX
  (C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
@@ -131,7 +140,7 @@ Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
 ) (C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\stringenc.sty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
 )
-\@linkdim=\dimen172
+\@linkdim=\dimen174
 \Hy@linkcounter=\count294
 \Hy@pagecounter=\count295
  (C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
@@ -160,15 +169,15 @@ Package hyperref Info: Bookmarks ON on input line 4462.
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4801.
-\XeTeXLinkMargin=\dimen173
+\XeTeXLinkMargin=\dimen175
  (C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
  (C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\bigintcalc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
 \Fld@menulength=\count298
-\Field@Width=\dimen174
-\Fld@charsize=\dimen175
+\Field@Width=\dimen176
+\Fld@charsize=\dimen177
 Package hyperref Info: Hyper figures OFF on input line 6078.
 Package hyperref Info: Link nesting OFF on input line 6083.
 Package hyperref Info: Hyper index ON on input line 6086.
@@ -192,18 +201,18 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 284.
 )
-\Hy@SectionHShift=\skip51
+\Hy@SectionHShift=\skip53
 ) (C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\tex/latex/titlesec\titlesec.sty
 Package: titlesec 2025/01/04 v2.17 Sectioning titles
-\ttl@box=\box55
-\beforetitleunit=\skip52
-\aftertitleunit=\skip53
-\ttl@plus=\dimen176
-\ttl@minus=\dimen177
-\ttl@toksa=\toks23
-\titlewidth=\dimen178
-\titlewidthlast=\dimen179
-\titlewidthfirst=\dimen180
+\ttl@box=\box57
+\beforetitleunit=\skip54
+\aftertitleunit=\skip55
+\ttl@plus=\dimen178
+\ttl@minus=\dimen179
+\ttl@toksa=\toks24
+\titlewidth=\dimen180
+\titlewidthlast=\dimen181
+\titlewidthfirst=\dimen182
 ) (C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
 Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
  (C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
@@ -222,15 +231,15 @@ Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
 ) (C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\tex/latex/microtype\microtype.sty
 Package: microtype 2026/03/01 v3.2d Micro-typographical refinements (RS)
-\MT@toks=\toks24
-\MT@tempbox=\box56
+\MT@toks=\toks25
+\MT@tempbox=\box58
 \MT@count=\count304
 LaTeX Info: Redefining \noprotrusionifhmode on input line 1084.
 LaTeX Info: Redefining \leftprotrusion on input line 1085.
-\MT@prot@toks=\toks25
+\MT@prot@toks=\toks26
 LaTeX Info: Redefining \rightprotrusion on input line 1104.
 LaTeX Info: Redefining \textls on input line 1449.
-\MT@outer@kern=\dimen181
+\MT@outer@kern=\dimen183
 LaTeX Info: Redefining \microtypecontext on input line 2053.
 LaTeX Info: Redefining \textmicrotypecontext on input line 2070.
 \MT@listname@count=\count305
@@ -238,7 +247,7 @@ LaTeX Info: Redefining \textmicrotypecontext on input line 2070.
 File: microtype-pdftex.def 2026/03/01 v3.2d Definitions specific to pdftex (RS)
 LaTeX Info: Redefining \lsstyle on input line 944.
 LaTeX Info: Redefining \lslig on input line 944.
-\MT@outer@space=\skip54
+\MT@outer@space=\skip56
 )
 Package microtype Info: Loading configuration file microtype.cfg.
  (C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\tex/latex/microtype\microtype.cfg
@@ -246,31 +255,31 @@ File: microtype.cfg 2026/03/01 v3.2d microtype main configuration file (RS)
 )
 LaTeX Info: Redefining \microtypesetup on input line 3065.
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 20.
+Package hyperref Info: Option `colorlinks' set `true' on input line 21.
  (C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count306
 ) (distributed_edge_ai_report.aux)
 \openout1 = `distributed_edge_ai_report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -309,34 +318,34 @@ LaTeX Font Info:    ... okay on input line 89.
 (C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count307
-\scratchdimen=\dimen182
-\scratchbox=\box57
+\scratchdimen=\dimen184
+\scratchbox=\box59
 \nofMPsegments=\count308
 \nofMParguments=\count309
-\everyMPshowfont=\toks26
+\everyMPshowfont=\toks27
 \MPscratchCnt=\count310
-\MPscratchDim=\dimen183
+\MPscratchDim=\dimen185
 \MPnumerator=\count311
 \makeMPintoPDFobject=\count312
-\everyMPtoPDFconversion=\toks27
+\everyMPtoPDFconversion=\toks28
 ) (C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
  (C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-Package hyperref Info: Link coloring ON on input line 89.
+Package hyperref Info: Link coloring ON on input line 92.
  (distributed_edge_ai_report.out) (distributed_edge_ai_report.out)
 \@outlinefile=\write3
 \openout3 = `distributed_edge_ai_report.out'.
 
-LaTeX Info: Redefining \microtypecontext on input line 89.
-Package microtype Info: Applying patch `item' on input line 89.
-Package microtype Info: Applying patch `toc' on input line 89.
-Package microtype Info: Applying patch `eqnum' on input line 89.
-Package microtype Info: Applying patch `footnote' on input line 89.
-Package microtype Info: Applying patch `verbatim' on input line 89.
-LaTeX Info: Redefining \microtypesetup on input line 89.
+LaTeX Info: Redefining \microtypecontext on input line 92.
+Package microtype Info: Applying patch `item' on input line 92.
+Package microtype Info: Applying patch `toc' on input line 92.
+Package microtype Info: Applying patch `eqnum' on input line 92.
+Package microtype Info: Applying patch `footnote' on input line 92.
+Package microtype Info: Applying patch `verbatim' on input line 92.
+LaTeX Info: Redefining \microtypesetup on input line 92.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -380,15 +389,15 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 112.
+(Font)              <12> on input line 115.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 112.
+(Font)              <8> on input line 115.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 112.
-<images/bvec_logo.png, id=107, 93.951pt x 95.922pt>
+(Font)              <6> on input line 115.
+<images/bvec_logo.png, id=131, 93.951pt x 95.922pt>
 File: images/bvec_logo.png Graphic file (type png)
 <use images/bvec_logo.png>
-Package pdftex.def Info: images/bvec_logo.png  used on input line 124.
+Package pdftex.def Info: images/bvec_logo.png  used on input line 127.
 (pdftex.def)             Requested size: 101.17755pt x 103.30586pt.
  [1
 
@@ -399,21 +408,21 @@ Package pdftex.def Info: images/bvec_logo.png  used on input line 124.
 ]
 File: images/bvec_logo.png Graphic file (type png)
 <use images/bvec_logo.png>
-Package pdftex.def Info: images/bvec_logo.png  used on input line 167.
+Package pdftex.def Info: images/bvec_logo.png  used on input line 172.
 (pdftex.def)             Requested size: 97.56493pt x 99.61746pt.
  [2
 
 ]
 File: images/bvec_logo.png Graphic file (type png)
 <use images/bvec_logo.png>
-Package pdftex.def Info: images/bvec_logo.png  used on input line 194.
+Package pdftex.def Info: images/bvec_logo.png  used on input line 199.
 (pdftex.def)             Requested size: 97.56493pt x 99.61746pt.
  [3
 
 ]
 File: images/bvec_logo.png Graphic file (type png)
 <use images/bvec_logo.png>
-Package pdftex.def Info: images/bvec_logo.png  used on input line 215.
+Package pdftex.def Info: images/bvec_logo.png  used on input line 220.
 (pdftex.def)             Requested size: 97.56493pt x 99.61746pt.
  [4
 
@@ -423,25 +432,25 @@ Package pdftex.def Info: images/bvec_logo.png  used on input line 215.
 ] [6
 
 
-] (distributed_edge_ai_report.toc)
+] (distributed_edge_ai_report.toc [7
+
+
+])
 \tf@toc=\write4
 \openout4 = `distributed_edge_ai_report.toc'.
 
- [7
-
-
-] (distributed_edge_ai_report.lot)
+ [8] (distributed_edge_ai_report.lot)
 \tf@lot=\write5
 \openout5 = `distributed_edge_ai_report.lot'.
 
- [8
+ [9
 
 
 ] (distributed_edge_ai_report.lof)
 \tf@lof=\write6
 \openout6 = `distributed_edge_ai_report.lof'.
 
- [9
+ [10
 
 
 ]
@@ -450,27 +459,36 @@ Chapter 1.
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.310 \chapter
-              {Literature Survey} [1
+l.353 
+       [1
 
 
-]
+] [2]
 Chapter 2.
-[2
-
-]
-Chapter 3.
 [3
 
-]
+] [4] [5]
+Chapter 3.
+[6
+
+] [7]
 Chapter 4.
-[4
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 552.
+[8
+
+] [9]
+Chapter 5.
+[10
+
+] [11
 
 ]
-Chapter 5.
-[5
-
-] [6
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `cmtt' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+ [12
 
 ] (distributed_edge_ai_report.aux)
  ***********
@@ -478,20 +496,20 @@ LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
 Package rerunfilecheck Info: File `distributed_edge_ai_report.out' has not changed.
-(rerunfilecheck)             Checksum: 41194201CF6430DDA40E81654823E04A;3751.
+(rerunfilecheck)             Checksum: D6D5A36AC9C0DEDFDF4A4F87C2AEA2D2;5525.
  ) 
 Here is how much of TeX's memory you used:
- 12124 strings out of 467871
- 192425 string characters out of 5418377
- 654309 words of memory out of 5000000
- 40805 multiletter control sequences out of 15000+600000
- 637225 words of font info for 58 fonts, out of 8000000 for 9000
+ 12237 strings out of 467871
+ 194199 string characters out of 5418377
+ 657743 words of memory out of 5000000
+ 40900 multiletter control sequences out of 15000+600000
+ 638454 words of font info for 62 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,15n,79p,1075b,577s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\RJDhu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1200.pk> <C:\Users\RJDhu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1095.pk> <C:\Users\RJDhu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\RJDhu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk> <C:\Users\RJDhu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\RJDhu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\RJDhu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1440.pk> <C:\Users\RJDhu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1728.pk><C:/Users/RJDhu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on distributed_edge_ai_report.pdf (16 pages, 210931 bytes).
+ 75i,10n,79p,1075b,577s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\RJDhu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1200.pk> <C:\Users\RJDhu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1200.pk> <C:\Users\RJDhu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1095.pk> <C:\Users\RJDhu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\RJDhu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk> <C:\Users\RJDhu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\RJDhu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\RJDhu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1440.pk> <C:\Users\RJDhu\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1728.pk><C:/Users/RJDhu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on distributed_edge_ai_report.pdf (23 pages, 261564 bytes).
 PDF statistics:
- 632 PDF objects out of 1000 (max. 8388607)
- 69 named destinations out of 1000 (max. 500000)
- 6358 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 798 PDF objects out of 1000 (max. 8388607)
+ 83 named destinations out of 1000 (max. 500000)
+ 7430 words of extra memory for PDF output out of 10000 (max. 10000000)
 
