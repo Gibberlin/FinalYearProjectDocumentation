@@ -1,0 +1,445 @@
+\documentclass[12pt,a4paper,oneside]{report}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage[protrusion=true,expansion=false]{microtype}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=black,
+    citecolor=black
+}
+
+\setstretch{1.25}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\titleformat{\chapter}[display]
+  {\centering\bfseries}
+  {\Large Chapter \thechapter}
+  {0.5em}
+  {\Large}
+
+\titleformat{name=\chapter,numberless}[display]
+  {\centering\bfseries\Large}
+  {}
+  {0pt}
+  {}
+
+\titlespacing*{\chapter}{0pt}{-12pt}{24pt}
+\titlespacing*{\section}{0pt}{18pt}{7pt}
+\titlespacing*{\subsection}{0pt}{14pt}{5pt}
+
+\newcommand{\ReportTitle}{Distributed Edge Artificial Intelligence}
+\newcommand{\DegreeName}{Bachelor of Technology}
+\newcommand{\DepartmentName}{Computer Science \& Engineering}
+\newcommand{\InstitutionName}{Barak Valley Engineering College}
+\newcommand{\InstitutionAddress}{Nirala, Sribhumi -- 788701, Assam}
+\newcommand{\GuideName}{Mr. Rana Singha}
+\newcommand{\GuideDesignation}{[Supervisor designation]}
+\newcommand{\SubmissionDate}{[Month--Year]}
+\newcommand{\AcademicSession}{[Academic session]}
+\newcommand{\StudentNames}{%
+  \begin{enumerate}\setlength{\itemsep}{2pt}\setlength{\topsep}{4pt}
+    \item Anirbar Saikia
+    \item Avirup Roy
+    \item Hisbul Bahar Mazumdar
+    \item Ritesh Das
+    \item Syed Yashin Hussain
+  \end{enumerate}%
+}
+
+\newcommand{\frontmatterchapter}[1]{%
+  \chapter*{#1}%
+  \addcontentsline{toc}{chapter}{#1}%
+}
+
+\newcommand{\InstitutionHeader}{%
+  \begin{center}
+    \includegraphics[width=1.35in]{images/bvec_logo.png}\par
+    \vspace{0.15cm}
+    {\large\bfseries\color{red} Department of Computer Science \& Engineering\par}
+    \vspace{0.12cm}
+    {\Large\bfseries\color{blue} BARAK VALLEY ENGINEERING COLLEGE\par}
+    \vspace{0.08cm}
+    {\small (A Govt.\ of Assam Institution, Approved by AICTE, New Delhi, Govt.\ of India)\par}
+    {\small District: Sribhumi, Assam, 788701\par}
+  \end{center}
+  \vspace{0.2cm}
+  \hrule
+  \vspace{0.55cm}
+}
+
+\newcommand{\CertificateHeading}[1]{%
+  \begin{center}
+    {\large\bfseries #1\par}
+  \end{center}
+  \vspace{0.8cm}
+}
+
+\begin{document}
+
+\begin{titlepage}
+    \newgeometry{top=1in,bottom=0.4in,left=1in,right=1in}
+    \centering
+    \setstretch{1.1}
+    \vspace*{1.3cm}
+
+    {\Large\bfseries \ReportTitle\par}
+    \vspace{1.5cm}
+
+    {\large\itshape A Thesis (Major Project) submitted in partial fulfilment\\
+    of the requirements\par}
+    \vspace{1.2cm}
+
+    {\large\itshape For the Degree of\\[0.15cm]
+    \DegreeName\\[0.15cm]
+    In\\[0.15cm]
+    \normalfont\bfseries Computer Science and Engineering\par}
+    \vspace{1.2cm}
+
+    {\large Submitted by\par}
+    \vspace{0.6cm}
+    \begin{tabular}{l}
+      Anirbar Saikia\\
+      Avirup Roy\\
+      Hisbul Bahar Mazumdar\\
+      Ritesh Das\\
+      Syed Yashin Hussain
+    \end{tabular}
+    \vspace{1.0cm}
+
+    {\large Under the Guidance of\\[0.15cm]
+    \textbf{\GuideName}\\
+    \GuideDesignation\par}
+    \includegraphics[width=1.4in]{images/bvec_logo.png}\par
+    \vspace{0.25cm}
+
+    {\large\bfseries DEPARTMENT OF COMPUTER SCIENCE \& ENGINEERING\\
+    BARAK VALLEY ENGINEERING COLLEGE\\
+    \normalsize NIRALA, SRIBHUMI -- 788701, ASSAM\\[0.25cm]
+    \large \SubmissionDate\par}
+\end{titlepage}
+\restoregeometry
+
+\pagenumbering{roman}
+
+\frontmatterchapter{Declaration}
+
+We, the students of \DepartmentName, \InstitutionName, declare that the work
+entitled ``\ReportTitle'' has been completed under the guidance of
+\GuideName, \GuideDesignation, \DepartmentName, \InstitutionName.
+
+\par\medskip
+
+The report has been prepared without resorting to plagiarism. We have adhered
+to the principles of academic honesty and integrity. No falsified or fabricated
+data have been presented in this report. Further, the matter embodied in this
+project report has not been submitted previously for the award of any degree
+or diploma.
+
+\vspace{1cm}
+
+\noindent
+Anirbar Saikia\\[0.25cm]
+Avirup Roy\\[0.25cm]
+Hisbul Bahar Mazumdar\\[0.25cm]
+Ritesh Das\\[0.25cm]
+Syed Yashin Hussain
+
+\vfill
+
+Date: \rule{5cm}{0.4pt}\hfill Place: \rule{5cm}{0.4pt}
+
+\clearpage
+\thispagestyle{plain}
+\phantomsection
+\addcontentsline{toc}{chapter}{Certificate of Approval}
+\InstitutionHeader
+\CertificateHeading{CERTIFICATE OF APPROVAL}
+
+\noindent
+\textbf{Project Title:} \ReportTitle\\
+\textbf{Project Category:} Major Project Report\\
+\textbf{Student Names:}
+
+\StudentNames
+
+\noindent
+\textbf{Name of the Department:} Computer Science \& Engineering\\
+\textbf{Name of the Supervisor:} \GuideName\\
+\textbf{Academic Session:} \AcademicSession\\
+\textbf{Recommendation:} [Yes/No]
+
+\vfill
+
+\noindent
+\textbf{[Name of Head of Department]}\\
+Head, Department of Computer Science \& Engineering\\
+Barak Valley Engineering College
+
+\clearpage
+\thispagestyle{plain}
+\phantomsection
+\addcontentsline{toc}{chapter}{Certificate from External Examiner}
+\InstitutionHeader
+\CertificateHeading{CERTIFICATE FROM EXTERNAL EXAMINER}
+
+This is to certify that I have examined the major project report entitled
+``\ReportTitle'', submitted by the following students of Bachelor of
+Technology in Computer Science and Engineering:
+
+\StudentNames
+
+The report is submitted in partial fulfilment of the academic requirements
+for the degree.
+
+\vfill
+
+\noindent External Examiner: \rule{7cm}{0.4pt}\\[0.8cm]
+\noindent Signature: \rule{5cm}{0.4pt}\hfill Date: \rule{4cm}{0.4pt}
+
+\clearpage
+\thispagestyle{plain}
+\phantomsection
+\addcontentsline{toc}{chapter}{Certificate from Supervisor}
+\InstitutionHeader
+\CertificateHeading{CERTIFICATE FROM SUPERVISOR}
+
+This is to certify that the major project/thesis work embodied in this report
+entitled ``\ReportTitle'', submitted by:
+
+\StudentNames
+
+of Bachelor of Technology in the Department of Computer Science \& Engineering
+is based on their work under my supervision and is prepared for their academic
+requirements. It is also certified that this work has not been submitted
+elsewhere for any degree or diploma.
+
+\vfill
+
+\noindent
+Date: \rule{4cm}{0.4pt}\hfill\textbf{\GuideName}\\
+Place: \rule{4cm}{0.4pt}\hfill\GuideDesignation
+
+\clearpage
+\frontmatterchapter{Abstract}
+
+\noindent\textbf{Formatting sample only --- replace before submission.}
+This sample abstract demonstrates the report's paragraph spacing and text
+width. Distributed Edge Artificial Intelligence studies how computation and
+learning tasks can be placed across devices near data sources and more
+centralized computing resources. The final abstract should briefly state the
+project problem, objectives, approach, evaluation method, and conclusions.
+
+\par\medskip
+\noindent\textit{Replace this sample with a concise abstract based on the
+completed project; do not treat this text as a project result.}
+
+\clearpage
+\frontmatterchapter{Acknowledgement}
+
+\noindent\textbf{Formatting sample only --- replace before submission.}
+The authors would like to thank their supervisor, Mr. Rana Singha, for
+guidance during the project. We also acknowledge the support of the Department
+of Computer Science \& Engineering and everyone who contributed advice or
+feedback.
+
+\par\medskip
+\noindent\textit{Update this acknowledgement to reflect the actual
+contributions and permissions before submission.}
+
+\clearpage
+\tableofcontents
+\clearpage
+\listoftables
+\clearpage
+\listoffigures
+\clearpage
+
+\pagenumbering{arabic}
+
+\chapter{Introduction}
+
+\noindent\textbf{Formatting sample only --- replace before submission.}
+Artificial intelligence applications increasingly need to process information
+close to where it is produced. Distributed Edge Artificial Intelligence
+considers how data processing and model execution can be shared between
+resource-constrained edge devices and other computing nodes. This chapter
+introduces the topic and provides sample section styles for the report.
+
+\section{Background}
+
+An edge-based system may include sensors, user devices, gateways, and
+computing infrastructure. The placement of a task can affect response time,
+network traffic, privacy, and resource use. These considerations motivate
+studying the design choices involved in distributing AI workloads.
+
+\section{Problem Statement}
+
+The project investigates how an AI workload can be organized across edge
+resources while accounting for device limitations and application
+requirements. The final problem statement should identify the specific
+application, constraints, and gap addressed by the project.
+
+\section{Objectives}
+
+The following are sample objective statements; revise them to match the agreed
+project scope:
+\begin{enumerate}
+  \item Study the key concepts and architectures used in distributed edge AI.
+  \item Define a suitable system design for the selected application.
+  \item Evaluate the design using project-specific metrics and experiments.
+\end{enumerate}
+
+\section{Scope and Report Organization}
+
+This sample document uses five chapters to demonstrate the report structure.
+The final scope, chapter names, and organization should follow the actual
+project and the department's requirements.
+
+\chapter{Literature Survey}
+
+\noindent\textbf{Formatting sample only --- replace before submission.}
+This chapter should review research and technical material directly relevant
+to the selected project. A well-structured survey groups sources by topic,
+compares their approaches, and explains how the review informs the project
+design. Add verified citations and a bibliography once the sources have been
+selected; no reference entries are fabricated in this formatting sample.
+
+\section{Edge Computing and AI}
+
+Introduce the concepts required to understand the project. Define important
+terms consistently and distinguish background information from the
+contributions made by the project.
+
+\section{Comparison of Existing Approaches}
+
+Use a consistent basis for comparing related work, such as deployment
+setting, processing location, evaluation method, and stated limitations.
+Support each comparison with an appropriate source.
+
+When several approaches are discussed, organize them around common themes
+rather than presenting a sequence of unrelated summaries. A comparison table
+can help readers see which assumptions and evaluation settings differ across
+the reviewed work.
+
+\section{Research Gap}
+
+Conclude the survey by identifying the specific question that remains
+relevant to this project. The gap should be supported by the reviewed sources
+and should lead directly to the objectives and design choices described in
+the following chapters.
+
+\chapter{System Design and Methodology}
+
+\noindent\textbf{Formatting sample only --- replace before submission.}
+This chapter demonstrates how a figure, numbered sections, and a short
+procedural list can be presented. The diagram below is a generic illustrative
+workflow and does not describe an implemented system.
+
+\section{Conceptual Workflow}
+
+\begin{figure}[H]
+  \centering
+  \setlength{\fboxsep}{8pt}
+  \resizebox{\textwidth}{!}{%
+    \begin{tabular}{c@{\hspace{0.5cm}$\longrightarrow$\hspace{0.5cm}}c@{\hspace{0.5cm}$\longrightarrow$\hspace{0.5cm}}c}
+      \fbox{\parbox[c][1.1cm][c]{0.22\textwidth}{\centering Data\\source}} &
+      \fbox{\parbox[c][1.1cm][c]{0.22\textwidth}{\centering Edge\\processing}} &
+      \fbox{\parbox[c][1.1cm][c]{0.22\textwidth}{\centering Application\\output}}
+    \end{tabular}%
+  }
+  \caption{Illustrative workflow used only to demonstrate figure formatting.}
+  \label{fig:sample-workflow}
+\end{figure}
+
+Figure~\ref{fig:sample-workflow} is a placeholder example. Replace it with a
+diagram that accurately represents the proposed or implemented system.
+
+\section{Sample Method}
+
+An example methodology outline is:
+\begin{enumerate}
+  \item Define the application requirements and system constraints.
+  \item Select the devices, models, and workload distribution strategy.
+  \item Implement the design and document the experimental setup.
+  \item Evaluate the system using clearly defined metrics.
+\end{enumerate}
+
+\section{Evaluation Plan}
+
+The evaluation plan should describe the test environment, input workload,
+baseline, and measurement procedure. Define each metric before reporting
+results so that readers can interpret the measurements consistently.
+
+\chapter{Results and Discussion}
+
+\noindent\textbf{Formatting sample only --- replace before submission.}
+Present the actual observations from the completed experiments in this
+chapter. State the test conditions, report units, and explain the limitations
+of the evaluation. The entries in Table~\ref{tab:sample-results} are
+intentionally marked as placeholders and are not measured results.
+
+\section{Illustrative Results Table}
+
+\begin{table}[H]
+  \centering
+  \caption{Placeholder results table for demonstrating layout only.}
+  \label{tab:sample-results}
+  \begin{tabular}{lcc}
+    \toprule
+    Evaluation case & Metric 1 & Metric 2 \\
+    \midrule
+    Case A & TBD & TBD \\
+    Case B & TBD & TBD \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Discussion}
+
+Replace the placeholder table with measured data and discuss the observed
+trends in relation to the project objectives. Avoid drawing conclusions that
+are not supported by the evaluation.
+
+\section{Limitations}
+
+Document constraints that may affect interpretation, such as the size of the
+test workload, the devices available, or the duration of the experiments.
+Explain how these constraints were handled and avoid generalizing beyond the
+conditions that were tested.
+
+\chapter{Conclusion and Future Work}
+
+\noindent\textbf{Formatting sample only --- replace before submission.}
+The final chapter should summarize what was completed and relate the main
+conclusions to the stated objectives. It should distinguish demonstrated
+outcomes from proposed future work. This sample contains no project-specific
+findings.
+
+Keep the conclusion focused: briefly restate the problem, summarize the
+approach, and state only findings established by the report. Avoid introducing
+new evidence or claims that have not been discussed in the results.
+
+\section{Future Work}
+
+Possible future-work topics should follow from the actual results and
+limitations of the project. Replace this paragraph with relevant next steps
+after the evaluation is complete.
+
+\frontmatterchapter{References}
+
+[Add the verified references used in the report. Apply the citation style
+required by the department.]
+
+\end{document}
