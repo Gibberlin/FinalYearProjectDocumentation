@@ -349,7 +349,7 @@ and how to coordinate nodes with different capabilities.
 
 Edge AI refers to executing artificial intelligence computations close to
 the data source, at the network edge, rather than in a centralised cloud data
-centre \cite{deng2019}. Edge resources may include end-user devices,
+centre \cite{deng2020}. Edge resources may include end-user devices,
 gateways, and nearby edge servers, working alongside centralised cloud
 resources. These layers differ in proximity to users, compute capacity,
 storage, and network connectivity. A system may therefore allocate
@@ -357,7 +357,7 @@ lightweight or latency-sensitive work to nearby devices and use more
 powerful resources for tasks that exceed their local capacity.
 
 Edge intelligence encompasses both the use of AI to manage edge systems and
-the execution of AI workloads on edge resources \cite{deng2019}. Distributed
+the execution of AI workloads on edge resources \cite{deng2020}. Distributed
 Edge AI extends this setting by coordinating work across interconnected,
 heterogeneous nodes. For example, a distributed scheduler can place
 application tasks across edge nodes as system conditions change
@@ -373,7 +373,7 @@ reduce some transfers but is constrained by device capacity and energy
 availability. Federated learning offers a way for clients to train
 collaboratively without collecting their raw training data at one central
 location, while still requiring the exchange and coordination of model
-updates \cite{deng2019}. Partitioned inference, in turn, must balance local
+updates \cite{deng2020}. Partitioned inference, in turn, must balance local
 computation against the cost of transferring intermediate results
 \cite{hou2022}.
 
@@ -383,7 +383,7 @@ when energy, network availability, or device diversity is the main
 constraint. Distributed systems must account for communication cost,
 heterogeneous computing resources, changing node availability, and the
 privacy and security implications of sharing data or model information
-\cite{deng2019,hu2023}. This report reviews these considerations as a basis
+\cite{deng2020,hu2023}. This report reviews these considerations as a basis
 for selecting a suitable application and implementation direction in a
 later project phase.
 
@@ -452,9 +452,9 @@ IoT devices, and the growth of edge computing. Zhou et al.\ describe edge
 intelligence as extending AI to the ``last mile'' for mobile and IoT devices
 that generate data at the edge. Deng et al.\ distinguish AI for edge from
 AI on edge, with the latter covering model training and inference on edge
-devices \cite{deng2019}. The term ``edge'' has no universally accepted
+devices \cite{deng2020}. The term ``edge'' has no universally accepted
 definition; its relation to cloud computing depends on proximity, capacity,
-and device heterogeneity \cite{deng2019}.
+and device heterogeneity \cite{deng2020}.
 
 \section{End-Edge-Cloud Architectures}
 
@@ -464,10 +464,21 @@ computation, while edge servers provide nearby, more capable resources.
 The literature distinguishes the complementary roles of AI for edge and AI
 on edge, and describes orchestration of heterogeneous on-device, edge,
 and cloud resources for distributed AI. Collaborative learning across
-cloud and edge resources is also studied \cite{deng2019}. Hu et al.\ describe
+cloud and edge resources is also studied \cite{deng2020}. Hu et al.\ describe
 a distributed edge-AI scheduler that places application tasks across
 heterogeneous nodes while accounting for changing system conditions
-\cite{hu2023}.
+\cite{hu2023}. The layers and their data and model flows are summarised in
+Figure~\ref{fig:end-edge-cloud-architecture}. The arrows distinguish
+communication between end devices and the edge layer from communication
+between the edge and cloud layers; data, intermediate results, and model
+information may travel in different directions depending on the task.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/end-edge-cloud-architecture.png}
+  \caption[End--Edge--Cloud Architecture]{End--Edge--Cloud Architecture. Adapted from Deng et al.\ \cite{deng2020}.}
+  \label{fig:end-edge-cloud-architecture}
+\end{figure}
 
 \section{Distributed Training: Federated Learning}
 
@@ -478,10 +489,18 @@ splitting and partitioning support inference. FL challenges include
 statistical heterogeneity, communication cost, resource allocation, and
 privacy and security. Communication can dominate computation when local
 datasets are small and participant processors are comparatively fast
-\cite{deng2019}.
+\cite{deng2020}. Figure~\ref{fig:federated-learning-workflow} illustrates
+the local-training and model-aggregation workflow.
 
 Communication efficiency, resource allocation, and data heterogeneity are
-recurring concerns in distributed edge learning \cite{deng2019}.
+recurring concerns in distributed edge learning \cite{deng2020}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/federated-learning-workflow.png}
+  \caption[Federated Learning Workflow]{Federated Learning Workflow. Adapted from Deng et al.\ \cite{deng2020}.}
+  \label{fig:federated-learning-workflow}
+\end{figure}
 
 \section{Distributed Inference: Partitioning and Collaboration}
 
@@ -490,9 +509,30 @@ server based on transmission latency and device energy. Early-exit methods
 can reduce communication when intermediate features are sufficient.
 DistrEdge applies deep reinforcement learning to distribute CNN inference
 across heterogeneous IoT edge devices and reports a 1.1--3$\times$ speedup
-over the compared methods \cite{hou2022}. Edge-intelligence surveys also
-cover the complementary roles of distributed training and inference
-\cite{deng2019}.
+over the state-of-the-art baselines evaluated in that study; this is a
+study-specific result rather than a general speedup guarantee
+\cite{hou2022}. The device--server split is shown in
+Figure~\ref{fig:partitioned-collaborative-inference}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/partitioned-collaborative-inference.png}
+  \caption[Partitioned CNN Inference between a Device and Edge Server]{Partitioned CNN Inference between a Device and Edge Server. Adapted from Hou et al.\ \cite{hou2022}.}
+  \label{fig:partitioned-collaborative-inference}
+\end{figure}
+
+\noindent
+Hu et al.\ also describe a video-object-detection application divided into
+frame extraction, object detection, and frame combination services
+\cite{hu2023}. Figure~\ref{fig:distributed-video-object-detection} shows
+this pipeline as a second example of distributed inference.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/distributed-video-object-detection.png}
+  \caption[Distributed Video Object-Detection Pipeline]{Distributed Video Object-Detection Pipeline. Adapted from Hu et al.\ \cite{hu2023}.}
+  \label{fig:distributed-video-object-detection}
+\end{figure}
 
 \section{Communication Efficiency}
 
@@ -501,7 +541,7 @@ transmitted affects per-round overhead and the number of communication
 rounds. Quantisation and pruning, together with in-network computation, are
 discussed as ways to address communication cost. Computation-intensive
 inference may require task splitting across edge devices and servers, making
-communication efficiency especially important \cite{deng2019,hou2022}.
+communication efficiency especially important \cite{deng2020,hou2022}.
 
 \section{Heterogeneity, Non-IID Data, and Stragglers}
 
@@ -515,45 +555,28 @@ heterogeneity can also lead to stragglers and dropouts. Participant
 selection is one proposed mitigation, while edge-assisted architectures,
 data augmentation, and mediator-based rescheduling are reported as approaches
 to non-IID bias. These challenges are part of the broader edge-intelligence
-research landscape \cite{deng2019}.
+research landscape \cite{deng2020}.
 
 \section{Privacy and Security}
 
 FL does not eliminate privacy risks: a malicious participant may infer
-sensitive attributes from shared models, and systems may be vulnerable to
-data or model poisoning. One example in the reviewed literature reports
-inferring whether an
-individual's input appeared in a gender-classifier training set with up to
-90\% accuracy. Other surveyed threats include honest-but-curious servers,
-free-riding participants, poisoning, and model inversion.
-Inference attacks may recover training samples; differential privacy is one
-mitigation, with a possible trade-off against model performance.
-Surveys classify poisoning and inference attacks and identify communication
-blockage, poisoning, and backdoor attacks among high-priority threats.
-Privacy-preserving cloud-edge-end architectures include encrypted or
-anonymised protocols and multi-centre hierarchical FL. Blockchain-based
-FL is also discussed as a way to remove a central aggregator.
+data or model poisoning. The surveyed literature discusses inference
+attacks, honest-but-curious servers, free-riding participants, and
+poisoning; differential privacy and other privacy-preserving approaches
+involve design trade-offs \cite{deng2020}. Specific attack-success rates
+are not reported here because the primary studies behind those figures
+have not been verified for this review.
 
 \section{Energy and Hardware Constraints}
 
-Latency, energy efficiency, and computation or memory footprint are
-important evaluation metrics; latency-sensitive applications may have
-constraints around 100 ms. Energy-efficient edge training is another
-motivation in the literature; one cited example uses AlphaGo's reported
-requirement of 280 GPUs and a \$3,000 electricity cost per game to illustrate
-the cost of computation. Reported Raspberry Pi 5 measurements for
-MobileNetV3-Small include 2.14--2.17 ms latency, approximately 2.55 W net
-power, and 5.5 mJ per inference. Reported ResNet-18 measurements include
-12.9--14.1 ms, 2.4--2.8 W, and 31--39 mJ per inference.
-
-Other reported results include up to 10 W for a Jetson Nano GPU configuration,
-approximately 5 W for a Google Coral TPU, and approximately 2 W for an
-Intel NCS2 accelerator. Reported power values for an Arduino Nano,
-Raspberry Pi, and idle Jetson Nano are 0.17 W, 3.5 W, and 1.3--1.6 W,
-respectively. Another comparison reports a Jetson Nano approximately
-three times faster and 1.67 times lower in energy than a Raspberry Pi for
-its network configuration. These results use different platforms,
-workloads, and protocols and are indicative rather than directly comparable.
+Latency, energy use, memory footprint, and available computing resources
+are relevant evaluation measures for edge workloads \cite{deng2020,hou2022}.
+Their measured values depend on the device, model, network conditions, and
+measurement setup. The cited DistrEdge evaluation, for example, does not
+consider memory constraints and reports its speedups only against the
+baselines and test cases used in that study \cite{hou2022}. A later
+implementation should therefore record these conditions and avoid direct
+comparison of results obtained under different protocols.
 
 \section{Application Domains}
 
@@ -569,14 +592,34 @@ executed.
 
 \section{Review Protocol}
 
-The preliminary study follows a structured literature-review approach.
-Research questions are modelled on existing reviews of computing, storage,
-and communication technologies in distributed edge AI and optimisation
-along the edge-fog-cloud data path. The approach also draws on
-systematic reviews that develop taxonomies of edge AI systems and
-examine cloud-edge AI integration \cite{deng2019,hu2023}. Sources are selected from academic
-databases for relevance to architecture, training, inference, communication,
-heterogeneity, privacy and security, energy, and applications.
+This report presents a preliminary narrative review, not a systematic
+review. The team consulted online publication records and paper repositories
+for the three core papers discussed here: a survey of edge intelligence, a
+study of distributed edge-AI scheduling, and a study of distributed CNN
+inference \cite{deng2020,hu2023,hou2022}. A complete record of the databases
+and repositories searched was not maintained.
+
+Exact search queries were not recorded. Terms recalled from the project's
+scope include ``Distributed Edge AI,'' ``Edge Intelligence,'' ``Federated
+Learning,'' ``Collaborative Inference,'' and ``End-Edge-Cloud Computing,''
+along with the titles ``Distributed Edge AI Systems'' and ``DistrEdge:
+Speeding up Convolutional Neural Network Inference on Distributed Edge
+Devices.'' These are reconstructed topic and title terms, not verified
+queries. Search dates were not recorded, and no formal publication-year
+restriction was documented. The identified reference materials span 2019,
+2020, 2022, and 2023; these years describe materials consulted, not a
+predefined search range.
+
+Formal inclusion and exclusion criteria, screening stages, and counts of
+papers initially considered were not recorded. The sources in this report
+were selected for relevance to distributed edge-AI architectures, edge
+intelligence, federated learning, collaborative inference, communication
+efficiency, resource heterogeneity, privacy and security, and energy and
+hardware constraints. These themes describe the review's scope rather than
+formal selection rules. The three papers are core references identified in
+the current draft, not necessarily the full set of sources consulted.
+Accordingly, the review does not claim exhaustive coverage or a reproducible
+systematic search.
 
 \section{Analytical Framework}
 
@@ -624,7 +667,15 @@ limitations, and refine the implementation.
 The project is currently in Phases 1 and 2. The specific application,
 implementation platform, and final architecture have not yet been selected.
 Phases 3--6 therefore represent planned future work rather than completed
-activities.
+activities. Figure~\ref{fig:six-phase-research-plan} summarises all six
+phases and indicates the current stage.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/six-phase-research-plan.png}
+  \caption{Six-Phase Research and Development Plan.}
+  \label{fig:six-phase-research-plan}
+\end{figure}
 
 \section{Proposed Feasibility-Assessment Framework}
 
@@ -632,7 +683,15 @@ A multi-criteria assessment is proposed using latency, energy efficiency,
 and computation and memory footprint, extended with bandwidth
 sensitivity, scalability, and cost. Candidate platforms could be
 compared using a reproducible benchmarking approach that measures latency,
-throughput, power, and energy.
+throughput, power, and energy. The candidate-selection process and criteria
+are summarised in Figure~\ref{fig:feasibility-assessment-framework}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/feasibility-assessment-framework.png}
+  \caption{Proposed Feasibility-Assessment Framework.}
+  \label{fig:feasibility-assessment-framework}
+\end{figure}
 
 \section{Proposed Technical Methodology}
 
@@ -644,7 +703,7 @@ Two possible implementation directions are proposed for a later phase:
   following published partitioning schemes \cite{hou2022}.
   \item \textbf{Federated training:} participants train local models and
   share model updates through an aggregation server, as surveyed for mobile
-  edge networks and edge training \cite{deng2019}.
+  edge networks and edge training \cite{deng2020}.
 \end{enumerate}
 
 Neither direction has been implemented; both remain proposals for subsequent
@@ -669,50 +728,63 @@ findings.
 
 The reviewed literature converges on layered end-edge-cloud architectures,
 with federated training and partitioned or collaborative inference as two
-major technical families \cite{deng2019,hou2022}. Communication efficiency
-is a recurring bottleneck across both.
-
-\section{Feasibility Indications}
-
-The literature suggests that distributed edge AI can support latency-
-sensitive and privacy-sensitive workloads, while remaining constrained by
-communication and energy. In one reported setup, edge-server inference
-increased from 0.123 seconds at 1 Mbps to 2.317 seconds at 50 kbps, while a
-mobile device took more than 2 seconds. Hardware energy figures vary
-substantially by device and workload.
+major technical families \cite{deng2020,hou2022}. Communication efficiency
+is a recurring bottleneck across both. Table~\ref{tab:literature-comparison}
+compares the three included papers by focus, method, evaluation, and
+reported limitations. Numerical results are presented as source-specific
+findings, not as directly comparable measurements.
 
 \begin{table}[H]
   \centering
-  \small
-  \caption{Hardware metrics reported in the reviewed literature.}
-  \label{tab:reported-hardware-metrics}
-  \begin{tabular}{>{\raggedright\arraybackslash}p{0.27\textwidth}
-                  >{\raggedright\arraybackslash}p{0.24\textwidth}
-                  >{\raggedright\arraybackslash}p{0.37\textwidth}}
+  \scriptsize
+  \setlength{\tabcolsep}{2pt}
+  \caption{Comparison of selected literature. Quantitative findings are reported by the cited sources.}
+  \label{tab:literature-comparison}
+  \begin{tabular}{>{\raggedright\arraybackslash}p{0.11\textwidth}
+                  >{\raggedright\arraybackslash}p{0.12\textwidth}
+                  >{\raggedright\arraybackslash}p{0.13\textwidth}
+                  >{\raggedright\arraybackslash}p{0.19\textwidth}
+                  >{\raggedright\arraybackslash}p{0.20\textwidth}
+                  >{\raggedright\arraybackslash}p{0.17\textwidth}}
     \toprule
-    Platform or workload & Metric & Reported value \\
+    Paper & Main focus & Approach & Evaluation setup & Reported finding & Limitation to consider \\
     \midrule
-    Raspberry Pi 5, MobileNetV3-Small & Latency, net power, energy &
-      2.14--2.17 ms; about 2.55 W; 5.5 mJ per inference \\
-    Raspberry Pi 5, ResNet-18 & Latency, net power, energy &
-      12.9--14.1 ms; 2.4--2.8 W; 31--39 mJ per inference \\
-    NVIDIA Jetson Nano & Peak power & Up to 10 W \\
-    Google Coral TPU & Power & About 5 W \\
-    Intel NCS2 and Raspberry Pi 3B+ & Accelerator and host power &
-      About 2 W and 3 W \\
-    Arduino Nano & Power & 0.17 W \\
-    Raspberry Pi & Power & 3.5 W \\
-    NVIDIA Jetson Nano & Idle power & 1.3--1.6 W \\
+    Hu et al.\ (2023) \cite{hu2023} &
+    Distributed task scheduling &
+    Dynamic monitoring and placement of application services across edge nodes &
+    Containerised video object detection; varied detection-container count and video quality &
+    More detection containers reduced processing time up to a point; additional containers could increase it &
+    One application and deployment; results depend on video quality and tested environment \\
+    \addlinespace
+    Deng et al.\ (2020) \cite{deng2020} &
+    Edge-intelligence landscape &
+    Survey and taxonomy of AI for edge and AI on edge &
+    Literature synthesis; no single experimental setup &
+    Organises edge-intelligence goals, architectures, and research challenges &
+    Survey conclusions depend on the studies and scope reviewed; not new experimental results \\
+    \addlinespace
+    Hou et al.\ (2022) \cite{hou2022} &
+    Distributed CNN inference &
+    Deep-reinforcement-learning-based model partitioning across heterogeneous devices &
+    CNN inference tests with device and network variation, including embedded NVIDIA Jetson devices &
+    Reports 1.1--3$\times$ speedup against the baselines evaluated in that study &
+    Memory constraints were excluded; results depend on tested models, devices, networks, and baselines \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-Partitioned collaborative inference is reported to achieve 1.1--3$\times$
-speedups over the methods compared in DistrEdge \cite{hou2022}. A communication-
-efficient FL method reports up to 87\% improvement in convergence time and
-up to 3.6\% improvement in accuracy relative to standard FL. These
-results come from different hardware, workloads, and measurement protocols
-and should not be compared directly.
+\section{Feasibility Indications}
+
+The selected studies indicate that performance depends on how tasks are
+partitioned, the capabilities of participating devices, and the
+communication conditions. Hu et al.\ report diminishing returns when
+additional detection containers are added to their video application,
+whereas Hou et al.\ report a 1.1--3$\times$ speedup only against the
+baselines in their own CNN-inference evaluation \cite{hu2023,hou2022}.
+These findings illustrate different workloads and evaluation setups and
+should not be interpreted as a direct comparison. The included Deng et al.\
+paper is a survey and provides context rather than new benchmark results
+\cite{deng2020}.
 
 \section{Discussion and Limitations}
 
@@ -728,11 +800,9 @@ constrain how data and model updates are handled.
 No implementation or measurements have been carried out; this feasibility
 assessment relies entirely on published results. Those results use different
 platforms, workloads, and measurement setups. Even power-measurement
-protocols vary; one study reports reducing measurement uncertainty by
-factors of 6 and 12 on two device families relative to an established
-protocol. Direct cross-study comparison of energy values must therefore
-be treated cautiously. The field is still developing, and the definition of
-``edge'' remains unsettled. Open challenges include resource
+protocols vary, so direct cross-study comparison of performance and energy
+values must be treated cautiously. The field is still developing, and the
+definition of ``edge'' remains unsettled. Open challenges include resource
 constraints, security threats, scalability, and communication overhead.
 
 \chapter{Conclusion and Future Work}
@@ -745,7 +815,7 @@ with federated learning and collaborative DNN partitioning as major
 technical families. Potential suitability for latency- and
 privacy-sensitive applications is bounded by communication cost,
 device and data heterogeneity, energy constraints, and
-privacy and security risks \cite{deng2019,hou2022}.
+privacy and security risks \cite{deng2020,hou2022}.
 
 The project is currently in the foundational learning and literature-review
 stages. The immediate work involves strengthening the understanding of
@@ -756,33 +826,37 @@ implementation platform. After the project direction has been finalized, a
 prototype will be developed, tested, and refined. No implementation or
 experimental results are claimed at the present stage.
 
-\frontmatterchapter{References}
-
 \begin{thebibliography}{9}
+  \addcontentsline{toc}{chapter}{References}
+
   \bibitem{hu2023}
   Fei Hu, Kunal Mehta, Shivakant Mishra, and Mohammad AlMutawa.
-  \textit{Distributed Edge AI Systems}. In Proceedings of the 2023 IEEE/ACM
-  16th International Conference on Utility and Cloud Computing (UCC '23),
-  2023. \href{https://doi.org/10.1145/3603166.3632546}{DOI record}.\par
+  ``Distributed Edge AI Systems.'' In \textit{Proceedings of the IEEE/ACM
+  16th International Conference on Utility and Cloud Computing (UCC '23)},
+  Taormina, Italy, December 4--7, 2023, pp.\ 1--6.
+  \href{https://doi.org/10.1145/3603166.3632546}{doi:10.1145/3603166.3632546}.\par
   Local PDF: \path{references/distributed-edge-ai-systems-hu-et-al-2023.pdf}.
 
-  \bibitem{deng2019}
+  \bibitem{deng2020}
   Shuiguang Deng, Hailiang Zhao, Weijia Fang, Jianwei Yin, Schahram
   Dustdar, and Albert Y. Zomaya.
-  \textit{Edge Intelligence: The Confluence of Edge Computing and Artificial
-  Intelligence}. arXiv:1909.00560, 2019.
-  \href{https://arxiv.org/abs/1909.00560}{arXiv record}.\par
-  Local PDF: \path{references/edge-intelligence-deng-et-al-2019.pdf}.
+  ``Edge Intelligence: The Confluence of Edge Computing and Artificial
+  Intelligence.'' \textit{IEEE Internet of Things Journal}, vol.\ 7, no.\ 8,
+  pp.\ 7457--7469, August 2020.
+  \href{https://doi.org/10.1109/JIOT.2020.2984887}{doi:10.1109/JIOT.2020.2984887}.
+  Published journal version consulted.
 
   \bibitem{hou2022}
   Xueyu Hou, Yongjie Guan, Tao Han, and Ning Zhang.
-  \textit{DistrEdge: Speeding up Convolutional Neural Network Inference on
-  Distributed Edge Devices}. arXiv:2202.01699, 2022.
-  \href{https://arxiv.org/abs/2202.01699}{arXiv record}.\par
-  Local PDF: \path{references/distr-edge-hou-et-al-2022.pdf}.
+  ``DistrEdge: Speeding up Convolutional Neural Network Inference on
+  Distributed Edge Devices.'' In \textit{2022 IEEE International Parallel
+  and Distributed Processing Symposium (IPDPS)}, Lyon, France, May 30--June 3,
+  2022, pp.\ 1097--1107.
+  \href{https://doi.org/10.1109/IPDPS53621.2022.00110}{doi:10.1109/IPDPS53621.2022.00110}.\par
+  Published conference version consulted.
 \end{thebibliography}
 
-The links above lead to the online publication records. Local copies are
-stored in the \path{references/} folder.
+The links above lead to the DOI records for the cited publication versions.
+Local copies are stored in the \path{references/} folder.
 
 \end{document}
