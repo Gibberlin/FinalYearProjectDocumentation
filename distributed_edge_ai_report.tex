@@ -3,11 +3,16 @@
 \usepackage[a4paper,margin=1in]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+\usepackage{lmodern}
 \usepackage{setspace}
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{array}
+\usepackage{tabularx}
 \usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usepackage{caption}
 \usepackage{hyperref}
 \usepackage{titlesec}
 \usepackage{xcolor}
@@ -21,6 +26,7 @@
 }
 
 \setstretch{1.25}
+\captionsetup[figure]{skip=8pt}
 \setcounter{secnumdepth}{3}
 \setcounter{tocdepth}{3}
 
@@ -268,13 +274,14 @@ inference, communication efficiency, resource heterogeneity, and security
 considerations. The reviewed work indicates that distributing computation
 closer to data can support responsive applications and reduce dependence on
 centralised processing, but the benefits depend on task placement, network
-conditions, and device capabilities. Federated training and partitioned
-inference are identified as complementary approaches, each with trade-offs
-in communication, coordination, and resource requirements. The project
-remains at the literature-review and feasibility-assessment stage; no
-implementation or experimental measurements are claimed. Future work will
-select an application and platform, then evaluate an appropriate
-distributed-AI design using reproducible performance and energy measures.
+conditions, and device capabilities. Across the four selected works,
+communication is a recurring constraint, but federated training, task
+scheduling, and partitioned inference address different problems and use
+different evaluation settings. The project remains at the
+literature-review and feasibility-assessment stage; no implementation or
+experimental measurements are claimed. Future work will select an
+application and platform, then evaluate an appropriate distributed-AI
+design using reproducible performance and energy measures.
 
 \par\medskip
 \noindent\textbf{Keywords:} Distributed Edge AI, Edge Intelligence,
@@ -406,6 +413,10 @@ The specific application and implementation platform have not yet been
 selected, and no system has been implemented or experimentally evaluated
 as part of this stage. The review is intended to identify relevant design
 choices and provide a grounded basis for defining the next phase of work.
+It is guided by two questions: how do federated training and distributed
+inference differ in their methods and system requirements, and which
+measurable constraints should determine whether a candidate approach is
+feasible on the resources available to the team?
 
 \section{Objectives}
 
@@ -475,7 +486,38 @@ information may travel in different directions depending on the task.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{images/end-edge-cloud-architecture.png}
+  \begin{tikzpicture}[
+    font=\small,
+    flow/.style={-{Stealth[length=2mm]}, thick},
+    layer/.style={draw, dashed, rounded corners, minimum width=3.8cm,
+      minimum height=3.5cm, align=center},
+    resource/.style={draw, rounded corners, fill=gray!8,
+      minimum width=3.2cm, minimum height=0.65cm, align=center}
+  ]
+    \draw[layer] (0,0) rectangle (4.2,3.7);
+    \draw[layer] (5.1,0) rectangle (9.3,3.7);
+    \draw[layer] (10.2,0) rectangle (14.4,3.7);
+
+    \node[font=\bfseries] at (2.1,3.35) {End Devices};
+    \node[font=\bfseries] at (7.2,3.35) {Edge Layer};
+    \node[font=\bfseries] at (12.3,3.35) {Cloud Layer};
+
+    \node[resource] at (2.1,2.55) {Sensors and IoT Devices};
+    \node[resource] at (2.1,1.55) {Mobile Devices};
+    \node at (2.1,0.7) {$\cdots$};
+    \node[resource] at (7.2,2.55) {Edge Server / Gateway};
+    \node[resource] at (7.2,1.55) {Edge Server / Gateway};
+    \node at (7.2,0.7) {$\cdots$};
+    \node[resource] at (12.3,2.55) {Cloud Server};
+    \node[align=center] at (12.3,1.2) {Data Storage\\Model Training\\Management};
+
+    \draw[flow] (4.35,1.9) -- (5.0,1.9);
+    \draw[flow] (5.0,1.65) -- (4.35,1.65);
+    \draw[flow] (9.45,1.9) -- (10.1,1.9);
+    \draw[flow] (10.1,1.65) -- (9.45,1.65);
+    \draw[flow] (0.6,-0.45) -- (13.8,-0.45);
+    \node[below] at (7.2,-0.45) {Data and Model Flow};
+  \end{tikzpicture}
   \caption[End--Edge--Cloud Architecture]{End--Edge--Cloud Architecture. Adapted from Deng et al.\ \cite{deng2020}.}
   \label{fig:end-edge-cloud-architecture}
 \end{figure}
@@ -494,10 +536,52 @@ the local-training and model-aggregation workflow.
 
 Communication efficiency, resource allocation, and data heterogeneity are
 recurring concerns in distributed edge learning \cite{deng2020}.
+McMahan et al.\ present federated averaging, in which clients perform local
+training and a server averages their model updates. Their evaluation covers
+five model architectures and four datasets, and reports 10--100 times fewer
+communication rounds than synchronized stochastic gradient descent in the
+settings tested \cite{mcmahan2017}. This result is specific to their
+workloads and baselines; it does not imply the same reduction for every
+edge-learning system.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{images/federated-learning-workflow.png}
+  \begin{tikzpicture}[
+    font=\small,
+    flow/.style={-{Stealth[length=2mm]}, thick},
+    client/.style={draw, rounded corners, fill=gray!8,
+      minimum width=3.1cm, minimum height=0.85cm, align=center},
+    data/.style={draw, rounded corners, minimum width=1.8cm,
+      minimum height=0.55cm, align=center}
+  ]
+    \node[draw, rounded corners, fill=gray!8, minimum width=4.3cm,
+      minimum height=1cm, align=center] (server) at (0,3.5)
+      {\textbf{Global Model}\\Aggregation Server};
+    \node[client] (client1) at (-5.1,0.7)
+      {\textbf{Client 1}\\Local Training};
+    \node[client] (client2) at (0,0.7)
+      {\textbf{Client 2}\\Local Training};
+    \node[client] (clientn) at (5.1,0.7)
+      {\textbf{Client N}\\Local Training};
+    \node[data] (data1) at (-5.1,-1.0) {Local Data};
+    \node[data] (data2) at (0,-1.0) {Local Data};
+    \node[data] (datan) at (5.1,-1.0) {Local Data};
+
+    \draw[flow] ([xshift=-0.35cm]server.south) -- ([xshift=0.35cm]client1.north);
+    \draw[flow] ([xshift=0.35cm]client1.north) -- ([xshift=-0.35cm]server.south);
+    \draw[flow] (server.south) -- (client2.north);
+    \draw[flow] (client2.north) -- (server.south);
+    \draw[flow] ([xshift=0.35cm]server.south) -- ([xshift=-0.35cm]clientn.north);
+    \draw[flow] ([xshift=-0.35cm]clientn.north) -- ([xshift=0.35cm]server.south);
+    \node[draw=none, fill=white, inner sep=2pt, align=center]
+      at (-3.05,2.15) {Global model\\Model updates};
+    \node[draw=none, fill=white, inner sep=2pt, align=center]
+      at (3.05,2.15) {Global model\\Model updates};
+    \node at (2.55,0.7) {$\cdots$};
+    \draw[flow] (client1.south) -- (data1.north);
+    \draw[flow] (client2.south) -- (data2.north);
+    \draw[flow] (clientn.south) -- (datan.north);
+  \end{tikzpicture}
   \caption[Federated Learning Workflow]{Federated Learning Workflow. Adapted from Deng et al.\ \cite{deng2020}.}
   \label{fig:federated-learning-workflow}
 \end{figure}
@@ -516,7 +600,31 @@ Figure~\ref{fig:partitioned-collaborative-inference}.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{images/partitioned-collaborative-inference.png}
+  \begin{tikzpicture}[
+    x=0.68cm,
+    font=\small,
+    flow/.style={-{Stealth[length=2mm]}, thick},
+    block/.style={draw, rounded corners, fill=gray!8, align=center,
+      minimum width=3.2cm, minimum height=1cm}
+  ]
+    \node[font=\bfseries] at (3.2,3.25) {Device (Client)};
+    \node[font=\bfseries] at (12.4,3.25) {Edge Server};
+
+    \node[block] (device) at (3.2,1.85)
+      {First Part of Model\\Feature Extraction};
+    \node[block] (edge) at (12.4,1.85)
+      {Remaining Part of Model\\Inference};
+
+    \draw[flow] (-1.0,1.85) -- (device.west);
+    \node[left] at (-1.0,1.85) {Input Data};
+    \draw[flow] ([yshift=0.15cm]device.east) -- ([yshift=0.15cm]edge.west)
+      node[midway, above=3mm, fill=white, inner sep=2pt, align=center]
+      {Intermediate\\Activations};
+    \draw[flow] ([yshift=-0.15cm]edge.west) -- ([yshift=-0.15cm]device.east)
+      node[midway, below=3mm, fill=white, inner sep=2pt, align=center] {Results};
+    \draw[flow] (edge.east) -- (17.0,1.85);
+    \node[right] at (17.0,1.85) {Output};
+  \end{tikzpicture}
   \caption[Partitioned CNN Inference between a Device and Edge Server]{Partitioned CNN Inference between a Device and Edge Server. Adapted from Hou et al.\ \cite{hou2022}.}
   \label{fig:partitioned-collaborative-inference}
 \end{figure}
@@ -526,6 +634,11 @@ Hu et al.\ also describe a video-object-detection application divided into
 frame extraction, object detection, and frame combination services
 \cite{hu2023}. Figure~\ref{fig:distributed-video-object-detection} shows
 this pipeline as a second example of distributed inference.
+Assigning detection work to multiple containers can use available parallel
+capacity and reduce frame-processing time up to a point. However, frames
+and detection results must move between pipeline stages, adding network
+traffic and communication delay; the reported benefit depends on the video
+quality, container count, and deployment evaluated by Hu et al.\ \cite{hu2023}.
 
 \begin{figure}[H]
   \centering
@@ -560,7 +673,7 @@ research landscape \cite{deng2020}.
 \section{Privacy and Security}
 
 FL does not eliminate privacy risks: a malicious participant may infer
-data or model poisoning. The surveyed literature discusses inference
+private data or poison a model. The surveyed literature discusses inference
 attacks, honest-but-curious servers, free-riding participants, and
 poisoning; differential privacy and other privacy-preserving approaches
 involve design trade-offs \cite{deng2020}. Specific attack-success rates
@@ -594,21 +707,22 @@ executed.
 
 This report presents a preliminary narrative review, not a systematic
 review. The team consulted online publication records and paper repositories
-for the three core papers discussed here: a survey of edge intelligence, a
-study of distributed edge-AI scheduling, and a study of distributed CNN
-inference \cite{deng2020,hu2023,hou2022}. A complete record of the databases
-and repositories searched was not maintained.
+for four core works discussed here: an edge-intelligence survey, a
+federated-learning study, a distributed edge-AI scheduling study, and a
+distributed CNN-inference study
+\cite{deng2020,mcmahan2017,hu2023,hou2022}. A complete record of the
+databases and repositories searched was not maintained.
 
 Exact search queries were not recorded. Terms recalled from the project's
 scope include ``Distributed Edge AI,'' ``Edge Intelligence,'' ``Federated
 Learning,'' ``Collaborative Inference,'' and ``End-Edge-Cloud Computing,''
 along with the titles ``Distributed Edge AI Systems'' and ``DistrEdge:
 Speeding up Convolutional Neural Network Inference on Distributed Edge
-Devices.'' These are reconstructed topic and title terms, not verified
-queries. Search dates were not recorded, and no formal publication-year
-restriction was documented. The identified reference materials span 2019,
-2020, 2022, and 2023; these years describe materials consulted, not a
-predefined search range.
+Devices.'' The work by McMahan et al.\ was also consulted through its
+publication record. These are reconstructed topic and title terms, not
+verified queries. Search dates were not recorded, and no formal
+publication-year restriction was documented. Publication years of works
+cited here describe the selected materials, not a predefined search range.
 
 Formal inclusion and exclusion criteria, screening stages, and counts of
 papers initially considered were not recorded. The sources in this report
@@ -616,10 +730,18 @@ were selected for relevance to distributed edge-AI architectures, edge
 intelligence, federated learning, collaborative inference, communication
 efficiency, resource heterogeneity, privacy and security, and energy and
 hardware constraints. These themes describe the review's scope rather than
-formal selection rules. The three papers are core references identified in
+formal selection rules. The works cited are core references identified in
 the current draft, not necessarily the full set of sources consulted.
 Accordingly, the review does not claim exhaustive coverage or a reproducible
 systematic search.
+
+A working extraction matrix has been prepared for the cited sources,
+recording their research focus, method, workload or dataset, hardware and
+network assumptions, evaluation metrics, reported findings, limitations,
+and relevance to the project. Details not stated by a source are marked as
+unreported or requiring further extraction. Search dates, actual queries,
+and screening decisions will be logged prospectively; missing historical
+search records will not be reconstructed.
 
 \section{Analytical Framework}
 
@@ -644,10 +766,13 @@ bibliographic details, and identify potential research gaps and application
 opportunities.
 
 \par\medskip
-\noindent\textbf{Phase 3: Small-Scale Experiments.} Investigate selected
-technical concepts through limited experiments, such as local inference,
-distributed execution, or communication-overhead measurements, depending
-on the findings of the initial research.
+\noindent\textbf{Phase 3: Small-Scale Experiments.} First inventory available
+devices, software, and network connections, then select a candidate
+application and a local baseline. Compare it with one distributed
+configuration under recorded workload and network conditions.
+Measure end-to-end latency, throughput, communication volume, peak memory,
+and task accuracy; measure energy when suitable power-monitoring equipment
+is available.
 
 \par\medskip
 \noindent\textbf{Phase 4: Feasibility Assessment.} Compare candidate
@@ -682,9 +807,13 @@ phases and indicates the current stage.
 A multi-criteria assessment is proposed using latency, energy efficiency,
 and computation and memory footprint, extended with bandwidth
 sensitivity, scalability, and cost. Candidate platforms could be
-compared using a reproducible benchmarking approach that measures latency,
-throughput, power, and energy. The candidate-selection process and criteria
-are summarised in Figure~\ref{fig:feasibility-assessment-framework}.
+compared using a reproducible benchmarking approach that records the model,
+workload, device, software environment, and network conditions alongside
+latency, throughput, communication volume, memory, and power or energy
+where measurable. Any acceptance thresholds will be set only after the
+application requirements and available resources are confirmed. The
+candidate-selection process and criteria are summarised in
+Figure~\ref{fig:feasibility-assessment-framework}.
 
 \begin{figure}[H]
   \centering
@@ -702,8 +831,9 @@ Two possible implementation directions are proposed for a later phase:
   or horizontally across devices and exchange intermediate outputs,
   following published partitioning schemes \cite{hou2022}.
   \item \textbf{Federated training:} participants train local models and
-  share model updates through an aggregation server, as surveyed for mobile
-  edge networks and edge training \cite{deng2020}.
+  share model updates through an aggregation server, following federated
+  averaging and its evaluation on distributed, unbalanced data
+  \cite{mcmahan2017}.
 \end{enumerate}
 
 Neither direction has been implemented; both remain proposals for subsequent
@@ -715,6 +845,13 @@ will be investigated through further literature analysis, small-scale
 experimentation, and feasibility assessment. The final approach will be
 selected based on the identified problem, available resources,
 implementation requirements, and evaluation objectives.
+
+Before choosing between these directions, the team will document its
+available hardware, software, datasets, and network setup; select a workload
+and local baseline; and check that the chosen evaluation measures can be
+collected on that setup. The comparison will treat federated training and
+partitioned inference as different problem types, not interchangeable
+implementations.
 \end{samepage}
 
 \chapter{Results and Discussion}
@@ -730,48 +867,57 @@ The reviewed literature converges on layered end-edge-cloud architectures,
 with federated training and partitioned or collaborative inference as two
 major technical families \cite{deng2020,hou2022}. Communication efficiency
 is a recurring bottleneck across both. Table~\ref{tab:literature-comparison}
-compares the three included papers by focus, method, evaluation, and
+compares the four selected works by focus, method, evaluation, and
 reported limitations. Numerical results are presented as source-specific
-findings, not as directly comparable measurements.
+findings, not as directly comparable measurements. The comparison also
+indicates how each work can inform a later project decision.
 
+\par\medskip
 \begin{table}[H]
   \centering
-  \scriptsize
-  \setlength{\tabcolsep}{2pt}
-  \caption{Comparison of selected literature. Quantitative findings are reported by the cited sources.}
+  \footnotesize
+  \setlength{\tabcolsep}{6pt}
+  \renewcommand{\arraystretch}{1.12}
+  \caption{Comparison of selected literature, its evidence, and project relevance.}
   \label{tab:literature-comparison}
-  \begin{tabular}{>{\raggedright\arraybackslash}p{0.11\textwidth}
-                  >{\raggedright\arraybackslash}p{0.12\textwidth}
-                  >{\raggedright\arraybackslash}p{0.13\textwidth}
-                  >{\raggedright\arraybackslash}p{0.19\textwidth}
-                  >{\raggedright\arraybackslash}p{0.20\textwidth}
-                  >{\raggedright\arraybackslash}p{0.17\textwidth}}
+  \begin{tabularx}{\textwidth}{
+    >{\raggedright\arraybackslash}p{0.14\textwidth}
+    >{\raggedright\arraybackslash}X
+    >{\raggedright\arraybackslash}X
+    >{\raggedright\arraybackslash}X}
     \toprule
-    Paper & Main focus & Approach & Evaluation setup & Reported finding & Limitation to consider \\
+    Study & Contribution and method & Evaluation and finding & Limitation and project relevance \\
     \midrule
-    Hu et al.\ (2023) \cite{hu2023} &
-    Distributed task scheduling &
-    Dynamic monitoring and placement of application services across edge nodes &
-    Containerised video object detection; varied detection-container count and video quality &
-    More detection containers reduced processing time up to a point; additional containers could increase it &
-    One application and deployment; results depend on video quality and tested environment \\
+    \textbf{Hu et al.}\\2023 \cite{hu2023} &
+    Dynamic scheduling for a containerized video-detection pipeline across heterogeneous edge nodes. &
+    Raspberry Pi, MacBook Pro, and Asus nodes; varied video quality and container count. Parallelism helped to a threshold; further containers increased processing time. &
+    One application and deployment. Informs task-placement and communication-cost evaluation. \\
     \addlinespace
-    Deng et al.\ (2020) \cite{deng2020} &
-    Edge-intelligence landscape &
-    Survey and taxonomy of AI for edge and AI on edge &
-    Literature synthesis; no single experimental setup &
-    Organises edge-intelligence goals, architectures, and research challenges &
-    Survey conclusions depend on the studies and scope reviewed; not new experimental results \\
+    \textbf{Deng et al.}\\2020 \cite{deng2020} &
+    Survey taxonomy distinguishing AI for edge from AI on edge. &
+    Literature synthesis; no experimental benchmark. &
+    Scope-dependent; provides conceptual context, not a performance baseline. \\
     \addlinespace
-    Hou et al.\ (2022) \cite{hou2022} &
-    Distributed CNN inference &
-    Deep-reinforcement-learning-based model partitioning across heterogeneous devices &
-    CNN inference tests with device and network variation, including embedded NVIDIA Jetson devices &
-    Reports 1.1--3$\times$ speedup against the baselines evaluated in that study &
-    Memory constraints were excluded; results depend on tested models, devices, networks, and baselines \\
+    \textbf{Hou et al.}\\2022 \cite{hou2022} &
+    DistrEdge uses deep reinforcement learning to partition CNN inference across heterogeneous devices. &
+    Jetson devices under varied device and network conditions; reports 1.1--3$\times$ speedup against tested baselines. &
+    Memory is not modeled. Candidate inference approach; measure memory in future tests. \\
+    \addlinespace
+    \textbf{McMahan et al.}\\2017 \cite{mcmahan2017} &
+    Federated averaging aggregates locally computed model updates. &
+    Five architectures and four datasets; reports 10--100$\times$ fewer rounds than synchronized SGD in tested settings. &
+    Training-focused; workload, data partition, and baseline matter. Not an inference comparison. \\
     \bottomrule
-  \end{tabular}
+  \end{tabularx}
 \end{table}
+
+The works inform different decisions rather than providing directly
+comparable alternatives: Deng et al.\ provide a survey framework; McMahan
+et al.\ provide a federated-training baseline; Hou et al.\ evaluate
+partitioned CNN inference; and Hu et al.\ study task placement in a
+video-processing application \cite{deng2020,mcmahan2017,hou2022,hu2023}.
+The reported metrics and test conditions differ, so their quantitative
+results should not be ranked against one another.
 
 \section{Feasibility Indications}
 
@@ -815,16 +961,18 @@ with federated learning and collaborative DNN partitioning as major
 technical families. Potential suitability for latency- and
 privacy-sensitive applications is bounded by communication cost,
 device and data heterogeneity, energy constraints, and
-privacy and security risks \cite{deng2020,hou2022}.
+privacy and security risks \cite{deng2020,hou2022,mcmahan2017}.
 
 The project is currently in the foundational learning and literature-review
-stages. The immediate work involves strengthening the understanding of
-Distributed Edge AI, analyzing relevant research, and organizing a verified
-reference collection. The next steps will involve small-scale experiments,
-followed by a feasibility assessment to select a suitable application and
-implementation platform. After the project direction has been finalized, a
-prototype will be developed, tested, and refined. No implementation or
-experimental results are claimed at the present stage.
+stages. Immediate milestones are to complete a source-extraction matrix,
+inventory the available hardware, software, datasets, and network
+connections, and select a candidate workload and local baseline. The team
+can then run a small pilot, recording latency, throughput, communication
+volume, memory, accuracy, and energy where measurable before deciding
+whether federated training or partitioned inference is feasible for that
+workload. Acceptance thresholds will be set after the application and its
+requirements are confirmed. No implementation or experimental results are
+claimed at the present stage.
 
 \begin{thebibliography}{9}
   \addcontentsline{toc}{chapter}{References}
@@ -834,8 +982,7 @@ experimental results are claimed at the present stage.
   ``Distributed Edge AI Systems.'' In \textit{Proceedings of the IEEE/ACM
   16th International Conference on Utility and Cloud Computing (UCC '23)},
   Taormina, Italy, December 4--7, 2023, pp.\ 1--6.
-  \href{https://doi.org/10.1145/3603166.3632546}{doi:10.1145/3603166.3632546}.\par
-  Local PDF: \path{references/distributed-edge-ai-systems-hu-et-al-2023.pdf}.
+  \url{https://doi.org/10.1145/3603166.3632546}.
 
   \bibitem{deng2020}
   Shuiguang Deng, Hailiang Zhao, Weijia Fang, Jianwei Yin, Schahram
@@ -843,8 +990,7 @@ experimental results are claimed at the present stage.
   ``Edge Intelligence: The Confluence of Edge Computing and Artificial
   Intelligence.'' \textit{IEEE Internet of Things Journal}, vol.\ 7, no.\ 8,
   pp.\ 7457--7469, August 2020.
-  \href{https://doi.org/10.1109/JIOT.2020.2984887}{doi:10.1109/JIOT.2020.2984887}.
-  Published journal version consulted.
+  \url{https://doi.org/10.1109/JIOT.2020.2984887}.
 
   \bibitem{hou2022}
   Xueyu Hou, Yongjie Guan, Tao Han, and Ning Zhang.
@@ -852,11 +998,15 @@ experimental results are claimed at the present stage.
   Distributed Edge Devices.'' In \textit{2022 IEEE International Parallel
   and Distributed Processing Symposium (IPDPS)}, Lyon, France, May 30--June 3,
   2022, pp.\ 1097--1107.
-  \href{https://doi.org/10.1109/IPDPS53621.2022.00110}{doi:10.1109/IPDPS53621.2022.00110}.\par
-  Published conference version consulted.
-\end{thebibliography}
+  \url{https://doi.org/10.1109/IPDPS53621.2022.00110}.
 
-The links above lead to the DOI records for the cited publication versions.
-Local copies are stored in the \path{references/} folder.
+  \bibitem{mcmahan2017}
+  Brendan McMahan, Eider Moore, Daniel Ramage, Seth Hampson, and Blaise
+  Aguera y Arcas. ``Communication-Efficient Learning of Deep Networks from
+  Decentralized Data.'' In \textit{Proceedings of the 20th International
+  Conference on Artificial Intelligence and Statistics}, Proceedings of
+  Machine Learning Research, vol.\ 54, pp.\ 1273--1282, 2017.
+  \url{https://proceedings.mlr.press/v54/mcmahan17a.html}.
+\end{thebibliography}
 
 \end{document}
