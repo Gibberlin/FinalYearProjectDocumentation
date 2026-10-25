@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.7.6)  26 OCT 2026 01:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.7.6)  26 OCT 2026 01:40
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -729,44 +729,45 @@ l.386
        [1
 
 
-] [2] [3]
-Chapter 2.
+]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 507.
-[4
+(Font)              <10.95> on input line 418.
+ [2{C:/Users/RJDhu/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}]
+<images/six-phase-research-plan.png, id=279, 1806.75pt x 501.875pt>
+File: images/six-phase-research-plan.png Graphic file (type png)
+<use images/six-phase-research-plan.png>
+Package pdftex.def Info: images/six-phase-research-plan.png  used on input line 498.
+(pdftex.def)             Requested size: 425.79092pt x 118.26993pt.
+ [3] [4 <./images/six-phase-research-plan.png (PNG copy)>]
+Chapter 2.
+[5
 
-] [5{C:/Users/RJDhu/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}]
-<images/distributed-video-object-detection.png, id=313, 1525.7pt x 521.95pt>
+] [6]
+<images/distributed-video-object-detection.png, id=319, 1525.7pt x 521.95pt>
 File: images/distributed-video-object-detection.png Graphic file (type png)
 <use images/distributed-video-object-detection.png>
-Package pdftex.def Info: images/distributed-video-object-detection.png  used on input line 645.
+Package pdftex.def Info: images/distributed-video-object-detection.png  used on input line 656.
 (pdftex.def)             Requested size: 452.9679pt x 154.96149pt.
- [6 <./images/distributed-video-object-detection.png (PNG copy)>] [7] [8]
+ [7 <./images/distributed-video-object-detection.png (PNG copy)>] [8]
 Chapter 3.
 [9
 
-]
-<images/six-phase-research-plan.png, id=345, 1806.75pt x 501.875pt>
-File: images/six-phase-research-plan.png Graphic file (type png)
-<use images/six-phase-research-plan.png>
-Package pdftex.def Info: images/six-phase-research-plan.png  used on input line 800.
-(pdftex.def)             Requested size: 452.9679pt x 125.8207pt.
- [10]
-<images/feasibility-assessment-framework.png, id=351, 1606.0pt x 602.25pt>
+] [10]
+<images/feasibility-assessment-framework.png, id=352, 1606.0pt x 602.25pt>
 File: images/feasibility-assessment-framework.png Graphic file (type png)
 <use images/feasibility-assessment-framework.png>
-Package pdftex.def Info: images/feasibility-assessment-framework.png  used on input line 820.
+Package pdftex.def Info: images/feasibility-assessment-framework.png  used on input line 824.
 (pdftex.def)             Requested size: 452.9679pt x 169.86024pt.
- [11 <./images/six-phase-research-plan.png (PNG copy)> <./images/feasibility-assessment-framework.png (PNG copy)>] [12]
+ [11 <./images/feasibility-assessment-framework.png (PNG copy)>]
 Chapter 4.
-[13
+[12
 
-] [14] [15]
+] [13] [14]
 Chapter 5.
-[16
+[15
 
 ]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 985.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 989.
  (C:\Users\RJDhu\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
@@ -774,7 +775,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
- [17
+ [16
 
 ] (distributed_edge_ai_report.aux)
  ***********
@@ -785,17 +786,17 @@ Package rerunfilecheck Info: File `distributed_edge_ai_report.out' has not chang
 (rerunfilecheck)             Checksum: 0468C1B6AA1A585598B367E9F553D752;5794.
  ) 
 Here is how much of TeX's memory you used:
- 24275 strings out of 467871
- 458917 string characters out of 5418377
- 881762 words of memory out of 5000000
- 52677 multiletter control sequences out of 15000+600000
+ 24280 strings out of 467871
+ 458996 string characters out of 5418377
+ 879759 words of memory out of 5000000
+ 52683 multiletter control sequences out of 15000+600000
  693018 words of font info for 77 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,11n,104p,1075b,851s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/RJDhu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/RJDhu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/RJDhu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/RJDhu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/RJDhu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri12.pfb><C:/Users/RJDhu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/RJDhu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt12.pfb>
-Output written on distributed_edge_ai_report.pdf (28 pages, 424356 bytes).
+Output written on distributed_edge_ai_report.pdf (27 pages, 424458 bytes).
 PDF statistics:
- 470 PDF objects out of 1000 (max. 8388607)
- 95 named destinations out of 1000 (max. 500000)
+ 467 PDF objects out of 1000 (max. 8388607)
+ 94 named destinations out of 1000 (max. 500000)
  10537 words of extra memory for PDF output out of 12000 (max. 10000000)
 
