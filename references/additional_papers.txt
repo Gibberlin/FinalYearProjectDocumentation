@@ -1,0 +1,12 @@
+ADDITIONAL PAPERS - PUBLISHER LINKS
+==================================================
+
+Federated Learning-Assisted Vehicular Edge Computing
+https://doi.org/10.1109/MVT.2023.3297793
+
+Multi-mobile Vehicles Task Offloading for Vehicle-Edge-Cloud Collaboration
+https://doi.org/10.1016/j.comcom.2023.11.013
+
+V2X-ViTv2: Improved Vision Transformers for Cooperative Perception
+https://doi.org/10.1109/TPAMI.2024.3479222
+

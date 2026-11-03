@@ -1,11 +1,17 @@
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1.1}{\ignorespaces End--Edge--Cloud Architecture}}{2}{figure.caption.10}%
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Autonomous-Vehicle Cooperative Perception in a Distributed Edge Architecture.}}{1}{figure.caption.10}%
 \contentsline {figure}{\numberline {1.2}{\ignorespaces Six-Phase Research and Development Plan.}}{4}{figure.caption.11}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Federated Learning Workflow}}{6}{figure.caption.12}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Partitioned CNN Inference between a Device and Edge Server}}{6}{figure.caption.13}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Distributed Video Object-Detection Pipeline}}{7}{figure.caption.14}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Federated Learning Workflow}}{7}{figure.caption.12}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Partitioned CNN Inference between a Device and Edge Server}}{7}{figure.caption.13}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Distributed Video Object-Detection Pipeline}}{8}{figure.caption.14}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Vehicle Communication Links and Representative Cooperative-Perception Messages.}}{10}{figure.caption.15}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Functional Roles of Vehicle, Roadside-Edge, and Cloud Layers.}}{12}{figure.caption.16}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Autonomous-Vehicle Sensor-to-Perception Workload Pipeline.}}{13}{figure.caption.17}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Proposed Feasibility-Assessment Framework.}}{11}{figure.caption.15}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Proposed Feasibility-Assessment Framework.}}{16}{figure.caption.18}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Primary Cooperative Perception and Secondary Training Paths.}}{17}{figure.caption.19}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Proposed Cooperative-Perception Architecture: Local Processing, V2X Payloads, Optional Edge Fusion, and Cloud Support.}}{18}{figure.caption.20}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Proposed Experimental Evaluation Workflow.}}{19}{figure.caption.21}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }

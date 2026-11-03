@@ -7,16 +7,15 @@ report when applicable.
 The supplied college logo is `bvec_logo.png`; the LaTeX report uses it on the
 cover and certificate pages.
 
-The report figures are monochrome. The user-provided conceptual overview and
-Background diagram are included as grayscale images; their embedded captions
-were cropped so the report can provide its own figure captions. Other figures
-are adapted from the supplied reference sheets, with their sources identified
-in the report captions:
+The report uses a monochrome visual style. The vehicle-specific overview,
+vehicle--edge--cloud collaboration diagram, sensor-to-perception pipeline,
+feasibility workflow, and proposed system architecture are drawn inline with
+TikZ in `distributed_edge_ai_report.tex`. The remaining image files used by
+the report are `six-phase-research-plan.png` and
+`distributed-video-object-detection.png`, with their sources identified in
+the report.
 
-- `distributed-edge-ai-overview-mono.png`
-- `distributed-edge-ai-background.png`
-- `federated-learning-workflow.png`
-- `partitioned-collaborative-inference.png`
-- `distributed-video-object-detection.png`
-- `six-phase-research-plan.png`
-- `feasibility-assessment-framework.png`
+Earlier generic architecture diagrams and feasibility artwork are retained
+as historical assets but are no longer used in the report. The main
+architecture remains a proposed design, not a depiction of an implemented
+system.

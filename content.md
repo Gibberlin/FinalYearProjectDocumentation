@@ -28,29 +28,31 @@ measured results.
 | 4 | Ritesh Das | [Add roll number] |
 | 5 | Syed Yashin Hussain | [Add roll number] |
 
+# Distributed Edge AI for Cooperative Perception in Autonomous Vehicles
+
 ## Abstract
 
-Distributed Edge Artificial Intelligence (Edge AI) places artificial
-intelligence workloads across devices near data sources, edge servers, and
-cloud resources. This report presents a preliminary literature study of how
-such workloads can be distributed while accounting for communication,
-computing capacity, energy use, and privacy. A thematic review examines
-end-edge-cloud architectures, federated learning, collaborative inference,
-communication efficiency, resource heterogeneity, and security
-considerations. The reviewed work indicates that distributing computation
-closer to data can support responsive applications and reduce dependence on
-centralised processing, but the benefits depend on task placement, network
-conditions, and device capabilities. Across the four selected works,
-communication is a recurring constraint, but federated training, task
-scheduling, and partitioned inference address different problems and use
-different evaluation settings. This project remains at the
-literature-review and feasibility-assessment stage; no implementation or
-experimental measurements are claimed. Future work will select an
-application and platform, then evaluate an appropriate distributed-AI design
-using reproducible performance and energy measures.
+Autonomous vehicles rely on timely onboard AI to interpret camera, LiDAR,
+and radar data, yet an individual vehicle's sensors can be limited by range
+and occlusion. This report assesses distributed Edge AI for cooperative
+perception, in which vehicles share selected sensor-derived information to
+supplement local perception. The proposed vehicle--edge--cloud architecture
+keeps immediate perception onboard, uses V2V and V2I links for selected
+observations or representations, allows nearby roadside infrastructure to
+support optional coordination or fusion, and reserves cloud resources for
+longer-term storage, model training, and management. Cloud or edge
+connectivity is not a dependency for safety-critical decisions. The review
+retains broader work on federated learning and distributed inference to
+inform the proposal and its communication trade-offs. The proposed
+evaluation compares vehicle-only perception, selected edge offloading, and
+multi-agent cooperative perception if dataset and resource feasibility
+permit. It will assess latency, detection quality, throughput, communication
+volume, network reliability, energy where measurable, and compute and
+memory use. This is a literature review and feasibility proposal; no
+implementation or experimental results are claimed.
 
-**Keywords:** Distributed Edge AI, Edge Intelligence, Federated Learning,
-Collaborative Inference, End-Edge-Cloud Computing
+**Keywords:** Distributed Edge AI, Autonomous Vehicles, Cooperative
+Perception, V2X, Communication-Efficient Inference
 
 ## Acknowledgement
 
@@ -83,6 +85,17 @@ training, inference, or other application tasks. The resulting design must
 decide which tasks to execute at each layer, what information to exchange,
 and how to coordinate nodes with different capabilities.
 
+Autonomous vehicles are the selected application domain. Their perception
+workloads process sensor streams to identify and track objects and interpret
+the driving environment, while immediate vehicle decisions require timely
+outputs. Sending all sensor inputs to a remote cloud would make processing
+dependent on wide-area connectivity; executing all possible work locally is
+also constrained by onboard compute, memory, power, and thermal limits.
+Nearby roadside edge infrastructure can augment vehicle resources when
+connectivity permits, while cloud resources support longer-horizon storage,
+training, and model management. Safety-critical processing remains onboard
+and does not depend on edge or cloud connectivity.
+
 Edge AI refers to executing artificial intelligence computations close to
 the data source, at the network edge, rather than in a centralised cloud data
 centre ([Deng et al., 2020](https://doi.org/10.1109/JIOT.2020.2984887)). Distributed
@@ -94,6 +107,9 @@ workloads among heterogeneous nodes
 [Hou et al., 2022](https://doi.org/10.1109/IPDPS53621.2022.00110)). The placement of a
 task can affect response time, network traffic, privacy, and resource use.
 These considerations motivate studying how AI workloads can be distributed.
+In autonomous vehicles, edge AI can augment onboard perception with nearby
+roadside resources, but local processing remains essential when connectivity
+is intermittent or latency-sensitive decisions must be made.
 
 Edge resources may include end-user devices, gateways, and nearby edge
 servers, working alongside centralised cloud resources. These layers differ
@@ -124,70 +140,61 @@ inference must balance local computation against the cost of transferring
 intermediate results
 ([Hou et al., 2022](https://doi.org/10.1109/IPDPS53621.2022.00110)).
 
-There is no single placement strategy that fits every workload. A design
-appropriate for a delay-sensitive application may not be optimal when energy,
-network availability, or device diversity is the main constraint.
-Distributed systems must account for communication cost, heterogeneous
-computing resources, changing node availability, and privacy and security
-implications of sharing data or model information
+There is no single placement strategy that fits every workload. For this
+project, the vehicle-sensor workload and onboard processing constraints are
+analyzed alongside communication cost, heterogeneous resources, changing
+node availability, and privacy and security implications
 ([Deng et al., 2020](https://doi.org/10.1109/JIOT.2020.2984887);
-[Hu et al., 2023](https://doi.org/10.1145/3603166.3632546)). This report
-reviews these considerations as a basis for selecting an application and
-implementation direction in a later project phase.
+[Hu et al., 2023](https://doi.org/10.1145/3603166.3632546)).
 
 ### 1.2 Problem statement
 
-The central problem considered in this project is how to distribute AI
-training and inference across end devices, edge resources, and cloud
-infrastructure when those resources have different capabilities and
-communication links have a cost. Centralised execution can require data to
-travel away from its source, whereas fully local execution may exceed the
-computing or energy capacity of an individual device. Distributing work
-therefore introduces trade-offs among response time, communication,
-resource use, and coordination.
+The central problem is how cooperative perception can combine selected
+information from multiple connected vehicles or roadside infrastructure to
+improve an ego vehicle's view while accounting for communication overhead,
+latency, freshness, and heterogeneous agents. Onboard perception remains
+available when V2V or V2I links are unavailable. Edge offloading is a
+supporting option; cloud services are not assumed for immediate
+safety-critical decisions.
 
-This report examines these trade-offs through a preliminary literature
-review and feasibility assessment. It focuses on end-edge-cloud
-architectures, federated training, collaborative inference, communication
-efficiency, resource heterogeneity, and privacy and security considerations.
-The specific application and implementation platform have not yet been
-selected, and no system has been implemented or experimentally evaluated
-as part of this stage. The review is intended to identify relevant design
-choices and provide a grounded basis for defining the next phase of work.
-It is guided by two questions: how do federated training and distributed
-inference differ in their methods and system requirements, and which
-measurable constraints should determine whether a candidate approach is
-feasible on the resources available to the team?
+This preliminary review asks how sensor-derived information can be aligned
+and fused without making immediate local processing depend on connectivity,
+and which communication, latency, freshness, quality, hardware, and
+reliability measures should inform a feasible prototype. No system has yet
+been implemented or experimentally evaluated.
 
 ### 1.3 Objectives
 
-1. Review distributed edge-AI architectures and approaches to federated
-   training and collaborative inference.
-2. Identify key challenges related to communication, heterogeneity, privacy,
-   energy, and available hardware resources.
-3. Establish a feasibility-assessment framework to guide selection of an
-   application and platform for future implementation and evaluation.
+1. Study distributed Edge AI architectures and their applicability to
+   autonomous-vehicle systems.
+2. Investigate multi-agent cooperative perception, feature sharing, fusion,
+   and communication-aware inference.
+3. Analyze communication latency, computational constraints, bandwidth,
+   energy consumption, and reliability.
+4. Propose a distributed Edge AI architecture for autonomous-vehicle
+   cooperative perception, with edge offloading as a supporting option.
+5. Develop a feasibility-assessment and evaluation framework for a future
+   prototype.
 
 ### 1.4 Scope and report organization
 
-The scope of this report is a literature-stage study of distributed edge AI;
-it does not claim a completed implementation, selected application, or new
-experimental measurements. The review considers architecture, training,
-inference, communication, heterogeneity, privacy and security, and hardware
-and energy constraints. Chapter 2 surveys the related literature. Chapter 3
-describes the review protocol and proposed feasibility-assessment and
-technical approaches. Chapter 4 presents the literature synthesis and
-discusses feasibility and limitations. Chapter 5 summarises the conclusions
-and identifies future work.
+The scope is a literature-stage study of distributed edge AI for autonomous
+vehicles, with cooperative perception as the primary technical direction.
+It does not claim a completed implementation or new experimental
+measurements. Hardware, software, datasets, and final task placement remain
+to be confirmed. Chapter 2 surveys the literature and vehicle workloads;
+Chapter 3 presents the architecture, setup, and evaluation framework;
+Chapter 4 discusses literature-based feasibility and limitations; and
+Chapter 5 concludes and identifies future work. Federated learning is
+secondary and not included in the primary online prototype.
 
-The project follows a six-phase research and development process: (1)
-learning the fundamentals of Edge AI and Distributed Edge AI, (2) reviewing
-research papers and building a verified reference collection, (3) conducting
-small-scale experiments, (4) assessing the feasibility of a larger project,
-(5) implementing the selected system, and (6) testing and refining the
-implementation. At the current stage, the work focuses on the first two
-phases. The subsequent phases will be undertaken as understanding of the
-field develops and a suitable application is identified.
+The six phases are: (1) learning Edge AI and autonomous-vehicle systems,
+(2) reviewing cooperative-perception literature, (3) conducting small-scale
+multi-agent workload experiments, (4) assessing a cooperative
+vehicle--edge prototype,
+(5) implementing the selected system, and (6) testing and refining it.
+Current work focuses on Phases 1 and 2; the domain is selected, while the
+platform and final design remain open.
 
 ## Chapter 2: Literature Survey
 
@@ -210,6 +217,10 @@ proximity, capacity, and device heterogeneity.
 A common architecture distributes processing across end devices, edge
 servers, and cloud resources. End devices perform lightweight local
 computation, while edge servers offer nearby, more capable resources.
+For connected vehicles, the vehicle is the end device, roadside units or
+multi-access edge servers provide nearby compute, and cloud resources
+support storage and large-scale services. V2V and V2I links support
+cooperation; edge-to-cloud links support longer-horizon services.
 The literature distinguishes AI-for-edge and AI-on-edge and describes
 orchestration of heterogeneous on-device, edge, and cloud resources for
 distributed AI. Collaborative learning across cloud and edge resources is
@@ -236,6 +247,20 @@ tested settings ([McMahan et al., 2017](https://proceedings.mlr.press/v54/mcmaha
 This is a source- and baseline-specific result, not a general guarantee for
 edge-learning systems.
 
+Vehicles and infrastructure could collaborate on periodic or offline model
+training by sharing model updates rather than routinely uploading raw
+sensor recordings. Mobility, intermittent connectivity, non-IID driving
+data, bandwidth use, update privacy, and malicious participants remain
+limitations. Federated learning does not replace onboard inference or
+immediate local decisions.
+
+Chellapandi et al. survey centralized and decentralized federated-learning
+approaches for connected and automated vehicles, including application
+datasets, privacy, communication overhead, heterogeneity, and security
+([Chellapandi et al., 2024](https://doi.org/10.1109/TIV.2023.3332675)).
+This is survey evidence rather than an online perception benchmark;
+federated training remains secondary to this project's primary direction.
+
 ### 2.4 Distributed inference and partitioning
 
 Partitioning a deep neural network between a device and server requires
@@ -253,6 +278,23 @@ distributed across containers ([Hu et al., 2023](https://doi.org/10.1145/3603166
 Additional containers can reduce frame-processing time up to a point, but
 moving frames and detection results between stages adds communication
 traffic and delay; the outcome depends on video quality and deployment.
+In vehicle applications, onboard inference can perform local object
+detection, classification, tracking, and perception. Cooperative inference
+may combine vehicle and roadside observations, but offloading intermediate
+activations adds delay and bandwidth use. Edge results should be optional;
+the vehicle must retain its local processing path.
+
+V2X-ViT applies heterogeneous multi-agent attention and multi-scale window
+attention to fuse vehicle and infrastructure information. In simulated
+V2XSet LiDAR 3D detection, its authors report a 21.2% AP gain over the
+single-agent baseline and at least 7.3% over compared intermediate-fusion
+methods; they also discuss simulation-to-reality, scalability, privacy, and
+robustness limits
+([Xu et al., 2022](https://doi.org/10.1007/978-3-031-19842-7_7)).
+CoBEVT uses sparse fused axial attention to aggregate multi-view features
+for cooperative bird's-eye-view segmentation and reports benchmark results
+on OPV2V and V2X-Sim, with extensions to multi-agent LiDAR detection
+([Xu et al., 2022](https://arxiv.org/abs/2207.02202)).
 
 ### 2.5 Communication efficiency
 
@@ -263,6 +305,20 @@ computation, are discussed as ways to address communication cost.
 Computation-intensive inference may require task splitting across edge
 devices and servers, which makes communication efficiency especially
 important.
+V2V and V2I communication delay, throughput, packet delivery, and
+availability vary with vehicle movement and network conditions. A future
+evaluation should measure these properties alongside inference latency,
+message size, data freshness, and bandwidth use.
+
+Raw sensor streams retain more detail but can demand substantial bandwidth;
+intermediate features trade bandwidth against a model-specific
+representation, while compact detections with timestamps and poses are
+smaller but contain less information. Where2comm uses spatial confidence
+maps to share sparse perceptually important feature regions and adapt
+communication to available bandwidth. It evaluates camera and LiDAR tasks
+on OPV2V, V2X-Sim, DAIR-V2X, and CoPerception-UAVs, measuring AP and
+communication volume; its reported gains are specific to those benchmarks
+([Hu et al., 2022](https://doi.org/10.52202/068431-0352)).
 
 ### 2.6 Heterogeneity, non-IID data, and stragglers
 
@@ -276,6 +332,10 @@ system heterogeneity can also lead to stragglers and dropouts.
 Participant selection is one proposed mitigation, while edge-assisted
 architectures, data augmentation, and mediator-based rescheduling are
 reported as approaches to non-IID bias.
+Vehicle fleets also differ in sensors, accelerators, memory, available power,
+and network connectivity. Mobility changes the time a vehicle can use a
+particular edge server; scheduling must not assume uniform hardware or
+continuous participation.
 
 ### 2.7 Privacy and security
 
@@ -286,6 +346,10 @@ involve design trade-offs
 ([Deng et al., 2020](https://doi.org/10.1109/JIOT.2020.2984887)). Specific
 attack-success rates are omitted here because their primary studies have
 not been verified for this review.
+Vehicle sensor data can reveal location and scene information. Connected
+vehicle links also need authentication and integrity protections and must
+consider replay, spoofing, denial-of-service, and compromised participants;
+security controls add overhead and do not eliminate risk.
 
 ### 2.8 Energy and hardware constraints
 
@@ -297,27 +361,74 @@ Measured values depend on the device, model, network, and measurement
 setup; the DistrEdge evaluation, for example, does not consider memory
 constraints. Cross-study measurements should not be directly compared
 without accounting for those differences.
+Onboard compute is further constrained by memory, power budgets, and heat
+dissipation during sustained perception. Offloading can reduce local compute
+demand but adds network dependencies, so immediate processing must remain
+available on the vehicle.
 
 ### 2.9 Application domains
 
-Reviewed applications include autonomous and connected vehicles, smart
-homes, industrial automation, healthcare, surveillance, real-time gaming,
-smart factories, and precision-agriculture pest detection.
+Edge AI is studied in smart homes, industrial automation, healthcare,
+surveillance, real-time gaming, smart factories, and precision agriculture.
+This project selects autonomous vehicles because sensor-driven perception
+combines substantial local computation with response-time and connectivity
+constraints.
+
+### 2.10 Autonomous vehicle systems and edge intelligence
+
+Connected vehicles exchange information with other vehicles and
+infrastructure. Autonomous vehicles use onboard sensors, such as cameras,
+radar, lidar, and positioning sensors, and onboard computing to interpret
+their surroundings. Roadside edge servers can augment local compute when
+reachable; cloud resources can support storage, model training, and model
+distribution. Immediate perception and safety-critical decisions remain
+available onboard and do not depend on remote connectivity. Response
+requirements depend on the task; this report does not assign a universal
+deadline.
+
+### 2.11 AI workloads in autonomous vehicles
+
+Representative workloads include sensor acquisition and preprocessing,
+synchronization and sensor fusion, object detection and classification,
+object tracking, environment perception, motion prediction, and decision
+support. The specific sensors and models remain to be selected. OPV2V is a
+candidate simulated V2V dataset built with CARLA/OpenCDA; it contains 73
+scenes, 11,464 frames, and 232,913 annotated 3D vehicle boxes, and compares
+early, late, and intermediate fusion. It offers a starting benchmark, not
+evidence of physical network or real-road performance
+([Xu et al., 2022](https://doi.org/10.1109/ICRA46639.2022.9812038)).
+Evaluation should measure output quality and processing latency.
+
+### 2.12 Vehicle--edge--cloud collaboration
+
+The proposed allocation keeps sensor acquisition, local perception, and
+the response path on the vehicle. Other vehicles share selected raw
+observations, intermediate features, or compact detections and metadata for
+time/pose alignment and fusion at the ego vehicle or optional edge.
+Roadside infrastructure may relay or process cooperative tasks. Cloud
+resources support longer-horizon storage, offline training, and model
+management. Mobility, communication delay, bandwidth, interruptions, stale
+results, privacy, and security limit collaboration; local perception
+continues if peers or infrastructure disconnect
+([Huang et al., 2025](https://doi.org/10.1109/JPROC.2025.3600903)).
 
 ## Chapter 3: Methodology
 
-The project is currently at the learning and literature-review stage, and
-the application has not yet been selected. The methods in this chapter are
-therefore proposed, not completed implementation or experiments.
+Autonomous vehicles are the selected application domain. This project
+remains at the learning and literature-review stage, so the methods in this
+chapter are proposed rather than completed implementation or experiments.
 
 ### 3.1 Review protocol
 
 This report presents a preliminary narrative review, not a systematic
-review. Four core works are discussed: an edge-intelligence survey, a
-federated-learning study, a distributed edge-AI scheduling study, and a
-distributed CNN-inference study. The review considers sources relevant to
+review. Eleven selected works are discussed, including edge-intelligence
+and distributed-inference studies, autonomous-vehicle cooperative-
+perception methods and datasets, and surveys of connected-vehicle
+federated learning and V2X cooperative perception. The review considers
+sources relevant to
 architecture, training, inference, communication, heterogeneity,
-privacy/security, energy, and applications. Complete records of databases,
+privacy/security, energy, and vehicle sensing, perception, communication,
+and vehicle--edge--cloud collaboration. Complete records of databases,
 search dates, exact search queries, screening stages, and paper counts were
 not maintained. The report therefore does not claim exhaustive coverage or
 a reproducible systematic search.
@@ -331,85 +442,123 @@ prospectively; do not reconstruct missing historical records.
 
 ### 3.2 Analytical framework
 
-Sources are synthesised across eight themes: definition and motivation;
-architecture; training; inference; communication; heterogeneity;
-privacy/security; and energy/hardware. This structure is intended to help
-map a later application choice to the relevant literature.
+Sources are synthesised across definition and motivation, architecture,
+training, inference, communication, heterogeneity, privacy/security, and
+energy/hardware. Vehicle workload criticality, output freshness, model
+quality, network tolerance, and vehicle/edge/cloud placement are additionally
+assessed.
 
 #### 3.2.1 Six-Phase Research and Development Plan
 
 The project is organized into six sequential but iterative phases.
 
-**Phase 1: Learning About Edge AI.** Develop an understanding of Edge AI,
-Distributed Edge AI, end-edge-cloud architectures, distributed inference,
+**Phase 1: Learning About Edge AI and Vehicle Systems.** Develop an
+understanding of distributed Edge AI, autonomous-vehicle sensing and
+perception, vehicle--edge--cloud architectures, distributed inference,
 federated learning, communication constraints, and resource management.
 
 **Phase 2: Literature Review and Reference Collection.** Study relevant
-research papers, compare existing methods, record verified bibliographic
-details, and identify potential research gaps and application opportunities.
+research on autonomous-vehicle workloads and connected-vehicle edge systems
+alongside distributed-AI research; compare methods and identify architecture,
+communication, and evaluation questions.
 
-**Phase 3: Small-Scale Experiments.** First inventory available devices,
-software, and network connections, then select a candidate application and
-local baseline. Compare it with one distributed configuration under
-recorded workload and network conditions. Measure end-to-end latency,
-throughput, communication volume, peak memory, and task accuracy; measure
-energy when suitable power-monitoring equipment is available.
+**Phase 3: Small-Scale Experiments.** Inventory available devices, software,
+datasets, and network connections. Define a bounded cooperative-perception
+benchmark and its vehicle-only baseline, selecting the specific task,
+model, and dataset to fit available resources. Compare with selected edge
+offload and multi-agent configurations using recorded or simulated input.
+Configuration C proceeds only if its dataset, compute, and software
+requirements are feasible. Measure latency, throughput, communication
+volume, memory, task quality, and energy when suitable instrumentation is
+available.
 
-**Phase 4: Feasibility Assessment.** Compare candidate applications
-according to technical relevance, implementation complexity, available
-resources, cost, and measurable evaluation criteria.
+**Phase 4: Feasibility Assessment.** Assess cooperative-perception
+processing across vehicles and optional edge resources against latency and
+quality requirements, compute and memory, connectivity and bandwidth,
+energy, reliability, implementation complexity, and cost.
 
 **Phase 5: Project Implementation.** Design and build a prototype for the
-application selected by the team following the preceding research and
+cooperative-perception workload following the preceding research and
 feasibility assessment.
 
 **Phase 6: Testing and Refinement.** Evaluate the prototype against
 appropriate functional and performance requirements, analyze limitations,
 and refine the implementation.
 
-The project is currently in Phases 1 and 2. The specific application,
-implementation platform, and final architecture have not yet been selected.
-Phases 3--6 therefore represent planned future work rather than completed
-activities.
+The project is currently in Phases 1 and 2. Autonomous vehicles are the
+selected domain and cooperative perception is the selected primary
+workload; the exact perception task, model, platform, and task placement
+remain to be determined.
+Phases 3--6 are planned, not completed.
 
 ### 3.3 Proposed feasibility-assessment framework
 
-A multi-criteria assessment is proposed using latency, energy efficiency,
-and computation/memory footprint, extended with bandwidth sensitivity, scalability, and cost. Candidate platforms could be compared with a
-reproducible benchmarking approach that records model, workload, device,
-software environment, and network conditions along with latency, throughput,
-communication volume, memory, and power or energy where measurable.
-Acceptance thresholds should be set only after the application requirements
-and available resources are confirmed.
+A multi-criteria assessment is proposed for cooperative perception. It
+includes inference and end-to-end latency, task quality, energy, compute
+and memory, bandwidth sensitivity, reliability under network interruption,
+scalability, and cost. Benchmarks will record the model,
+workload, device, software, and network conditions. Safety-critical
+processing must remain available locally when edge or cloud links fail;
+thresholds will be set after requirements and resources are confirmed.
 
 ### 3.4 Proposed technical methodology
 
-Two possible implementation directions are proposed for a later phase:
+The primary direction is multi-agent cooperative perception. The ego
+vehicle performs local inference and fuses selected information received
+from other agents. Candidate approaches include spatially selective feature
+sharing or compact detection messages, with fusion at the ego vehicle or a
+nearby edge node. Edge offloading is a supporting comparison; it must be
+evaluated for communication delay, bandwidth, freshness, and interruption.
+Federated learning is secondary and concerns periodic or offline model
+training, not primary online inference.
 
-1. **Partitioned collaborative inference:** split a model by layer or
-   horizontally across devices and exchange intermediate outputs, following
-   published partitioning schemes.
-2. **Federated training:** participants train local models and share model
-   updates through an aggregation server, as surveyed for mobile edge
-   networks and edge training.
+No approach has been implemented; choices of model, payload, fusion
+location, and edge participation remain subject to dataset, hardware,
+latency, quality, and network feasibility.
 
-Neither direction has been implemented; both remain proposals for subsequent
-work.
+### 3.5 Proposed system architecture
 
-The approaches described above are preliminary candidates identified from
-the literature, not finalized implementation choices. Their suitability
-will be investigated through further literature analysis, small-scale
-experimentation, and feasibility assessment. The final approach will be
-selected based on the identified problem, available resources,
-implementation requirements, and evaluation objectives.
+The vehicle layer acquires camera, LiDAR, radar, and positioning data and
+runs preprocessing, local perception, and immediate response functions.
+Other vehicles share selected raw observations, intermediate features, or
+detections with timestamps and pose metadata. The ego vehicle or nearby
+edge aligns and fuses received information; roadside compute may relay or
+process selected tasks. The cloud supports longer-term storage, offline
+training, and model management. If a link fails or a result is stale, the
+vehicle continues local perception; remote processing is not a
+safety-critical dependency. Hardware, software, models, and exact task
+placement remain undecided.
 
-The next milestones are to inventory available devices, software, datasets,
-and network connections; select a candidate workload and local baseline;
-and run a small pilot against one distributed configuration. Federated
-training and partitioned inference will be evaluated as different problem
-types, not interchangeable implementations. Planned measurements include
-end-to-end latency, throughput, communication volume, peak memory, task
-accuracy, and energy if suitable power-monitoring equipment is available.
+### 3.6 Proposed experimental setup
+
+Compare three configurations using consistent input and quality measures:
+A, vehicle-only perception; B, vehicle inference with selected edge
+offloading; and C, multi-agent cooperative perception. Configuration C is
+conditional on verifying a suitable dataset/simulator and available
+compute/software resources. OPV2V is a candidate but must be checked for
+format, licensing, and hardware requirements. Record hardware and software
+versions, model/input configuration, warm-up, repeated-run protocol, and
+network conditions. Vary latency, bandwidth, packet loss, and interruption;
+include an offline run to verify local fallback. Cloud services are
+evaluated only for non-time-critical functions. No live-road safety claim
+is made.
+
+### 3.7 Performance evaluation metrics
+
+These are proposed measurements, not experimental results:
+
+| Parameter | Measurement |
+| --- | --- |
+| Inference latency | Model input available to inference output |
+| End-to-end latency | Sensor input to perception output, including preprocessing and communication |
+| Detection quality | Precision, recall, and/or mAP as supported by model and labels |
+| Throughput | Frames or samples processed per second |
+| Network latency | Defined one-way or round-trip vehicle--edge delay |
+| Bandwidth | Bytes transferred per sample or time interval |
+| Energy | Energy used in a defined processing interval when measurable |
+| Resource utilization | CPU, GPU/accelerator, and memory use on vehicle and edge |
+| Message freshness | Age of timestamped information at fusion; stale inputs excluded |
+| Network reliability | Packet loss and interruption duration under each test profile |
 
 ## Chapter 4: Results and Discussion
 
@@ -418,20 +567,60 @@ outcomes of the review and feasibility synthesis, not experimental findings.
 
 ### 4.1 Literature synthesis
 
-The reviewed literature converges on layered end-edge-cloud architectures, with federated training and partitioned or collaborative
-inference as two major technical families. Communication
-efficiency is a recurring bottleneck across both.
+The reviewed literature converges on layered end-edge-cloud architectures,
+with federated training and partitioned or collaborative inference as two
+different technical families. For autonomous vehicles, the central
+question is how cooperative perception can improve local awareness without
+depending on connectivity for immediate decisions. V2X-ViT and CoBEVT study
+fusion, Where2comm targets communication cost, OPV2V provides a simulated
+V2V benchmark, and recent surveys synthesize system challenges. Their
+results are source-specific and do not evaluate the proposed vehicle
+system.
 
-### 4.2 Feasibility indications
+### 4.2 Feasibility indications and workload allocation
 
-The selected studies illustrate different evaluation settings. Hu et al.
-report that adding detection containers reduces processing time only up
-to a point in their video-processing application; Hou et al. report
-1.1--3x speedups against the baselines in their CNN-inference evaluation;
-and McMahan et al. report 10--100 times fewer communication rounds than
-synchronized stochastic gradient descent in their federated-learning
-settings. These findings concern different workloads and metrics and
-should not be compared or generalized beyond their reported conditions.
+V2X-ViT reports a 21.2% AP gain over its single-agent baseline and at least
+7.3% over compared intermediate-fusion approaches in simulated V2XSet.
+Where2comm reports over 100,000 times lower communication volume than
+selected baselines while outperforming them on OPV2V. These results depend
+on their respective benchmark protocols. OPV2V offers candidate simulated
+scenes for initial evaluation, while Hou et al.'s 1.1--3x inference
+speedups concern a separate distributed CNN workload. None of these
+measurements validates the proposed system or supports direct cross-paper
+ranking.
+
+The proposed allocation below is illustrative, not a measured or final
+placement policy:
+
+| Workload | Vehicle | Edge | Cloud |
+| --- | --- | --- | --- |
+| Sensor acquisition | Primary | — | — |
+| Local perception and fallback | Primary | — | — |
+| Cooperative messages (features/detections) | Primary | Relay possible | — |
+| Cooperative fusion | Primary or edge | Optional | — |
+| Federated model training (secondary) | Possible | Possible | Coordinator |
+| Model management | — | Distribution relay | Primary |
+
+This is an illustrative proposed allocation, not an experimentally selected
+placement policy.
+
+#### 4.2.1 Research gaps identified
+
+The literature identifies open issues that this project can examine:
+
+1. Communication overhead when transmitting raw observations or dense
+   intermediate features.
+2. Latency and freshness costs from transmission, alignment, and fusion.
+3. Reliability under intermittent or lossy vehicle-to-edge connectivity.
+4. Heterogeneous sensors, models, pose estimates, and compute capabilities
+   across agents.
+5. Maintaining local perception when remote messages are absent or stale.
+
+Where2comm studies spatially selective communication; the cooperative-
+perception survey discusses communication delay, data loss, alignment, and
+heterogeneity. OPV2V and V2X-ViT provide simulated benchmarks, not physical
+network validation. These are literature-derived gaps, not original
+experimental findings.
 
 ### 4.3 Discussion and limitations
 
@@ -444,6 +633,13 @@ slow or unreliable nodes can create stragglers and dropouts.
 Privacy and security risks, including inference and poisoning attacks, also
 constrain how data and model updates are handled.
 
+For autonomous vehicles, network interruption and mobility can make edge
+results unavailable or stale. Onboard compute, memory, power, and thermal
+limits constrain local models, while cooperative perception raises
+data-alignment, authenticity, location-privacy, and reliability questions.
+The vehicle therefore retains a local processing path; future safety claims
+require separate validation beyond the proposed performance measurements.
+
 No implementation or measurements have been carried out; this feasibility
 assessment relies on published results. Those results use different
 platforms, workloads, and measurement setups, and should not be compared
@@ -453,22 +649,23 @@ threats, scalability, and communication overhead.
 
 ## Chapter 5: Conclusion and Future Work
 
-This preliminary report reviews distributed edge AI and assesses feasibility
-at a conceptual level. Across the selected works, communication is a
-recurring constraint, but federated training, task scheduling, and
-partitioned inference address different problems and use different
-evaluation settings. Potential suitability for latency- and
-privacy-sensitive applications is bounded by communication cost, device and
-data heterogeneity, energy constraints, and privacy and security risks.
+Autonomous vehicles were selected because their sensor-driven perception
+requires timely local processing while their compute, energy, and network
+resources are constrained. Distributed Edge AI could support these workloads
+through onboard perception, optional roadside cooperation, and cloud-based
+storage, training, and model management. Vehicle--edge--cloud collaboration
+is relevant because the layers have complementary capabilities, but
+communication interruptions, heterogeneity, safety, privacy, and security
+remain unresolved challenges.
 
-Immediate milestones are to complete the reference matrix, inventory
-available hardware, software, datasets, and network connections, and select
-a candidate workload and local baseline. A small pilot can then compare the
-baseline with one distributed configuration using reproducible performance,
-communication, memory, accuracy, and energy measures where available.
-Acceptance thresholds will be set after requirements and resources are
-confirmed. No implementation or experimental results are claimed at the
-present stage.
+Planned work is to verify OPV2V's format, licensing, and resource
+requirements; inventory available devices and software; and establish a
+vehicle-only perception baseline. The team will then compare selected edge
+offloading and, if data and compute permit, multi-agent cooperative
+perception. Evaluation will measure latency, quality, throughput,
+communication volume, reliability, energy where measurable, and resource
+utilization under controlled network conditions. No implementation or
+experimental results are claimed at this stage.
 
 ## References
 
@@ -491,6 +688,33 @@ Core works cited in the report:
    Decentralized Data*. Proceedings of the 20th International Conference on
    Artificial Intelligence and Statistics, PMLR 54, 1273--1282, 2017.
    <https://proceedings.mlr.press/v54/mcmahan17a.html>
-
-Add further sources only after verifying their publication details and
-using them to support specific claims in the report.
+5. Anushka Biswas and Hwang-Cheng Wang. *Autonomous Vehicles Enabled by the
+   Integration of IoT, Edge Intelligence, 5G, and Blockchain*. Sensors,
+   23(4), article 1963, 2023. <https://doi.org/10.3390/s23041963>
+6. Vishnu Pandi Chellapandi, Liangqi Yuan, Christopher G. Brinton,
+   Stanislaw H. Żak, and Ziran Wang. *Federated Learning for Connected and
+   Automated Vehicles: A Survey of Existing Approaches and Challenges*.
+   IEEE Transactions on Intelligent Vehicles, 9(1), 119--137, 2024.
+   <https://doi.org/10.1109/TIV.2023.3332675>
+7. Runsheng Xu, Hao Xiang, Zhengzhong Tu, Xin Xia, Ming-Hsuan Yang, and
+   Jiaqi Ma. *V2X-ViT: Vehicle-to-Everything Cooperative Perception with
+   Vision Transformer*. ECCV, 107--124, 2022.
+   <https://doi.org/10.1007/978-3-031-19842-7_7>
+8. Yue Hu, Shaoheng Fang, Zixing Lei, Yiqi Zhong, and Siheng Chen.
+   *Where2comm: Communication-Efficient Collaborative Perception via
+   Spatial Confidence Maps*. NeurIPS 35, 4874--4886, 2022.
+   <https://doi.org/10.52202/068431-0352>
+9. Runsheng Xu, Hao Xiang, Xin Xia, Xu Han, Jinlong Li, and Jiaqi Ma.
+   *OPV2V: An Open Benchmark Dataset and Fusion Pipeline for Perception
+   with Vehicle-to-Vehicle Communication*. ICRA, 2583--2589, 2022.
+   <https://doi.org/10.1109/ICRA46639.2022.9812038>
+10. Runsheng Xu, Zhengzhong Tu, Hao Xiang, Wei Shao, Bolei Zhou, and
+    Jiaqi Ma. *CoBEVT: Cooperative Bird's Eye View Semantic Segmentation
+    with Sparse Transformers*. Proceedings of the 6th Conference on Robot
+    Learning, Proceedings of Machine Learning Research, 205, 989--1000,
+    2023. <https://proceedings.mlr.press/v205/xu23a.html>
+11. Tao Huang, Jianan Liu, Xi Zhou, Dinh C. Nguyen, Mostafa Rahimi Azghadi,
+    Yuxuan Xia, Qing-Long Han, and Sumei Sun. *Vehicle-to-Everything
+    Cooperative Perception for Autonomous Driving*. Proceedings of the IEEE,
+    113(5), 443--477, 2025.
+    <https://doi.org/10.1109/JPROC.2025.3600903>
