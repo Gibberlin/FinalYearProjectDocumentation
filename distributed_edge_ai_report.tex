@@ -1712,6 +1712,169 @@ values must be treated cautiously. The field is still developing, and the
 definition of ``edge'' remains unsettled. Open challenges include resource
 constraints, security threats, scalability, and communication overhead.
 
+\section{Additional Sources and Evidence}
+
+The following two papers were added to the source collection after the
+eleven-work core review described in the Review Protocol. They extend that
+discussion without changing the project's scope.
+
+The newly added CoEdge study examines cooperative execution of a single
+deep neural network across heterogeneous edge devices. Its adaptive
+partitioning responds to device capability and network conditions. In a
+prototype evaluation with four CNN models, the authors report energy
+reductions of 25.5--66.9\% with close inference latency relative to the
+compared approaches \cite{coedge2021}. These results motivate measuring
+energy alongside latency and communication cost when resources permit, but
+they are specific to the study's models, devices, and network conditions.
+They do not establish the same gains for a vehicle deployment.
+
+This form of cooperation differs from multi-agent cooperative perception:
+CoEdge distributes the computation for a model across devices, whereas
+vehicle-to-vehicle perception combines information from distinct agents.
+Both involve communication between nodes, but address different workload
+and perception objectives. Figure~\ref{fig:coedge-inference} gives an
+original conceptual view of the former, based on the approach described by
+Zeng et al.\ \cite{coedge2021}.
+
+\begin{figure}[H]
+  \centering
+  \resizebox{0.98\linewidth}{!}{%
+    \begin{tikzpicture}[
+      font=\small,
+      device/.style={draw, rounded corners, fill=gray!8, align=center,
+        text width=3.0cm, minimum height=1.25cm, inner sep=5pt},
+      flow/.style={-{Stealth[length=2mm]}, thick},
+      transfer/.style={-{Stealth[length=2mm]}, thick, dashed}
+    ]
+      \node[device] (input) at (-3.4,0)
+        {\textbf{Input}\\Sensor data};
+      \node[device] (nodea) at (0.5,0)
+        {\textbf{Edge device A}\\Layers 1--$k$\\Compute capacity};
+      \node[device] (nodeb) at (4.7,0)
+        {\textbf{Edge device B}\\Layers $k{+}1$--$m$\\Compute capacity};
+      \node[device] (nodec) at (8.9,0)
+        {\textbf{Edge device C}\\Layers $m{+}1$--$L$\\Compute capacity};
+      \node[device] (output) at (12.8,0)
+        {\textbf{Output}\\Inference result};
+      \draw[flow] (input.east) -- (nodea.west);
+      \draw[transfer] (nodea.east) -- (nodeb.west);
+      \draw[transfer] (nodeb.east) -- (nodec.west);
+      \draw[flow] (nodec.east) -- (output.west);
+      \node[align=center] at (4.7,2.0)
+        {\textbf{Adaptive partitioning based on device and link conditions}};
+      \node[font=\scriptsize,fill=white,inner sep=1pt] at (2.6,-1.8)
+        {Feature transfer};
+      \node[font=\scriptsize,fill=white,inner sep=1pt] at (6.8,-1.8)
+        {Feature transfer};
+    \end{tikzpicture}%
+  }
+  \caption[Cooperative DNN Inference across Heterogeneous Edge Devices]{
+    Conceptual view of cooperative DNN inference across heterogeneous edge
+    devices. Original schematic based on Zeng et al.\ \cite{coedge2021};
+    it is not reproduced from the source paper.}
+  \label{fig:coedge-inference}
+\end{figure}
+
+The relative energy savings reported for CoEdge's four evaluated CNNs are
+summarized in Figure~\ref{fig:coedge-energy-saving}. The values come from
+the paper's comparison with local inference and Musical Chair; they are
+study-specific results, not measurements from this project
+\cite{coedge2021}.
+
+\begin{figure}[H]
+  \centering
+  \resizebox{0.95\linewidth}{!}{%
+    \begin{tikzpicture}[
+      x=1.35cm,
+      y=0.065cm,
+      localbar/.style={draw=black, fill=gray!30},
+      cooperativebar/.style={draw=black, fill=gray!70},
+      font=\small
+    ]
+      \foreach \y in {0,20,40,60,70} {
+        \draw[gray!35] (0,\y) -- (8.5,\y);
+        \node[left] at (0,\y) {\y};
+      }
+      \draw[thick,->] (0,0) -- (0,75);
+      \draw[thick,->] (0,0) -- (8.5,0);
+      \node[rotate=90] at (-0.65,38) {Energy reduction (\%)};
+
+      \fill[localbar] (0.5,0) rectangle (0.9,39.2);
+      \node[above,font=\scriptsize] at (0.7,39.2) {39.2};
+      \fill[cooperativebar] (1.0,0) rectangle (1.4,66.9);
+      \node[above,font=\scriptsize] at (1.2,66.9) {66.9};
+      \node[font=\scriptsize,align=center,text width=1.8cm] at (0.95,-6)
+        {AlexNet};
+
+      \fill[localbar] (2.5,0) rectangle (2.9,37.8);
+      \node[above,font=\scriptsize] at (2.7,37.8) {37.8};
+      \fill[cooperativebar] (3.0,0) rectangle (3.4,64.9);
+      \node[above,font=\scriptsize] at (3.2,64.9) {64.9};
+      \node[font=\scriptsize,align=center,text width=1.8cm] at (2.95,-6)
+        {VGG-f};
+
+      \fill[localbar] (4.5,0) rectangle (4.9,11.5);
+      \node[above,font=\scriptsize] at (4.7,11.5) {11.5};
+      \fill[cooperativebar] (5.0,0) rectangle (5.4,46.0);
+      \node[above,font=\scriptsize] at (5.2,46.0) {46.0};
+      \node[font=\scriptsize,align=center,text width=1.8cm] at (4.95,-6)
+        {GoogLeNet};
+
+      \fill[localbar] (6.5,0) rectangle (6.9,10.9);
+      \node[above,font=\scriptsize] at (6.7,10.9) {10.9};
+      \fill[cooperativebar] (7.0,0) rectangle (7.4,25.5);
+      \node[above,font=\scriptsize] at (7.2,25.5) {25.5};
+      \node[font=\scriptsize,align=center,text width=1.8cm] at (6.95,-6)
+        {MobileNet};
+
+      \fill[gray!30] (4.3,73) rectangle (4.55,77);
+      \node[right,font=\scriptsize] at (4.55,75) {vs.\ local};
+      \fill[gray!70] (6.0,73) rectangle (6.25,77);
+      \node[right,font=\scriptsize] at (6.25,75) {vs.\ Musical Chair};
+    \end{tikzpicture}%
+  }
+  \caption[CoEdge Energy Savings across Four CNNs]{
+    Energy reductions reported by Zeng et al.\ \cite{coedge2021} for
+    four CNNs, relative to local inference and Musical Chair. Redrawn from
+    the percentages reported alongside Fig.~11; results are specific to
+    the study's testbed and settings.}
+  \label{fig:coedge-energy-saving}
+\end{figure}
+
+Ming's study considers an edge-computing-based autonomous-vehicle control
+system, including trajectory tracking and emergency-braking scenarios
+\cite{guo2023}. It provides additional application context for vehicle
+workloads, but does not evaluate V2X cooperative perception. The authors
+also identify the need to examine real-world application effects, so its
+results are not treated here as evidence of deployment readiness
+\cite{guo2023}.
+
+The source's vehicle-edge architecture and emergency-braking graph are
+reproduced below as examples from the published study. They are contextual
+literature figures, not the proposed system or results from this project
+\cite{guo2023}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.72\linewidth]{images/guo2023-edge-av-architecture.jpg}
+  \caption[Edge-Computing Architecture for Autonomous Vehicles]{
+    Architecture of autonomous vehicles based on edge computing.
+    Reproduced from Ming \cite{guo2023}, Fig.~3, under the Creative
+    Commons Attribution 4.0 International license (CC BY 4.0).}
+  \label{fig:guo-edge-av-architecture}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.78\linewidth]{images/guo2023-emergency-braking-speed.jpg}
+  \caption[Emergency-Braking Speed Curves]{
+    Emergency-braking speed curves reported by Ming \cite{guo2023},
+    Fig.~11. Reproduced under the Creative Commons Attribution 4.0
+    International license (CC BY 4.0); these are source-study results,
+    not measurements from this project.}
+  \label{fig:guo-emergency-braking-speed}
+\end{figure}
+
 \chapter{Conclusion and Future Work}
 
 \noindent
@@ -1830,6 +1993,19 @@ this stage.
   ``Vehicle-to-Everything Cooperative Perception for Autonomous Driving.''
   \textit{Proceedings of the IEEE}, vol.\ 113, no.\ 5, pp.\ 443--477, 2025.
   \url{https://doi.org/10.1109/JPROC.2025.3600903}.
+
+  \bibitem{coedge2021}
+  Liekang Zeng, Xu Chen, Zhi Zhou, Lei Yang, and Junshan Zhang.
+  ``CoEdge: Cooperative DNN Inference With Adaptive Workload Partitioning
+  Over Heterogeneous Edge Devices.'' \textit{IEEE/ACM Transactions on
+  Networking}, vol.\ 29, no.\ 2, pp.\ 595--608, 2021.
+  \url{https://doi.org/10.1109/TNET.2020.3042320}.
+
+  \bibitem{guo2023}
+  Guo Ming. ``Exploration of the Intelligent Control System of Autonomous
+  Vehicles Based on Edge Computing.'' \textit{PLOS ONE}, vol.\ 18, no.\ 2,
+  article e0281294, 2023.
+  \url{https://doi.org/10.1371/journal.pone.0281294}.
 \end{thebibliography}
 
 \end{document}

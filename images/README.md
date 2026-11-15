@@ -19,3 +19,15 @@ Earlier generic architecture diagrams and feasibility artwork are retained
 as historical assets but are no longer used in the report. The main
 architecture remains a proposed design, not a depiction of an implemented
 system.
+
+The supplementary source review also uses `guo2023-edge-av-architecture.jpg`
+and `guo2023-emergency-braking-speed.jpg`, reproducing Figures 3 and 11 from
+Guo Ming, “Exploration of the Intelligent Control System of Autonomous
+Vehicles Based on Edge Computing,” *PLOS ONE* 18(2), e0281294 (2023),
+https://doi.org/10.1371/journal.pone.0281294. Both figures are reproduced
+under the Creative Commons Attribution 4.0 International license (CC BY 4.0);
+their report captions identify the source and license. The CoEdge energy
+savings chart is redrawn inline in the report from reported values in Zeng
+et al., “CoEdge: Cooperative DNN Inference With Adaptive Workload
+Partitioning Over Heterogeneous Edge Devices,” https://doi.org/10.1109/TNET.2020.3042320;
+the source figure itself is not reproduced.
