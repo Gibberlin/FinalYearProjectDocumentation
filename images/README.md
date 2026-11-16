@@ -31,3 +31,9 @@ savings chart is redrawn inline in the report from reported values in Zeng
 et al., “CoEdge: Cooperative DNN Inference With Adaptive Workload
 Partitioning Over Heterogeneous Edge Devices,” https://doi.org/10.1109/TNET.2020.3042320;
 the source figure itself is not reproduced.
+
+The `carla_*.png` figures show project-generated CARLA outputs: ground-truth
+label projections, demo frames, a recorded camera triplet, steering
+diagnostics, detector timing, and steering-training results. They are
+included in `distributed_edge_ai_report.tex` as our preliminary results,
+not as figures reproduced from the cited research papers.

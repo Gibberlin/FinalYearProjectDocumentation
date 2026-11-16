@@ -34,22 +34,22 @@ measured results.
 
 Autonomous vehicles rely on timely onboard AI to interpret camera, LiDAR,
 and radar data, yet an individual vehicle's sensors can be limited by range
-and occlusion. This report assesses distributed Edge AI for cooperative
-perception, in which vehicles share selected sensor-derived information to
-supplement local perception. The proposed vehicle--edge--cloud architecture
-keeps immediate perception onboard, uses V2V and V2I links for selected
-observations or representations, allows nearby roadside infrastructure to
-support optional coordination or fusion, and reserves cloud resources for
-longer-term storage, model training, and management. Cloud or edge
-connectivity is not a dependency for safety-critical decisions. The review
-retains broader work on federated learning and distributed inference to
-inform the proposal and its communication trade-offs. The proposed
-evaluation compares vehicle-only perception, selected edge offloading, and
-multi-agent cooperative perception if dataset and resource feasibility
-permit. It will assess latency, detection quality, throughput, communication
-volume, network reliability, energy where measurable, and compute and
-memory use. This is a literature review and feasibility proposal; no
-implementation or experimental results are claimed.
+and occlusion. This report reviews distributed Edge AI for autonomous
+vehicles and records initial CARLA implementation and evaluation progress. The literature
+motivates a vehicle--edge--cloud architecture with onboard perception,
+optional V2V/V2I cooperation, and cloud services for longer-term training
+and management; network services are not a safety-critical dependency.
+Implemented CARLA work so far includes projecting simulator ground-truth
+labels into camera images in four weather conditions, recording a
+three-camera driving dataset, benchmarking a YOLO detector, and training
+two PilotNet-style steering runs on autopilot data. In the 198-frame GPU
+FP32 detector test, end-to-end latency averaged 20.5 ms (p95 24.2 ms).
+However, the saved seed-0 steering run did not outperform the
+always-straight baseline: its final validation MAE was 0.0863, its lowest
+validation MAE occurred at epoch 1, and turn direction matched in 49% of
+turn cases. These are simulator-specific preliminary measurements; the
+current implementation does not yet demonstrate cooperative V2V fusion,
+edge offloading, or real-vehicle safety.
 
 **Keywords:** Distributed Edge AI, Autonomous Vehicles, Cooperative
 Perception, V2X, Communication-Efficient Inference
@@ -157,11 +157,12 @@ available when V2V or V2I links are unavailable. Edge offloading is a
 supporting option; cloud services are not assumed for immediate
 safety-critical decisions.
 
-This preliminary review asks how sensor-derived information can be aligned
-and fused without making immediate local processing depend on connectivity,
-and which communication, latency, freshness, quality, hardware, and
-reliability measures should inform a feasible prototype. No system has yet
-been implemented or experimentally evaluated.
+The project asks how connected agents' sensor-derived information could be
+aligned and fused without making immediate local processing depend on
+connectivity. Initial CARLA data-capture, detection, and steering experiments
+have been implemented, but cooperative information exchange and fusion have
+not yet been demonstrated. The available measurements therefore characterize
+the current single-vehicle simulation prototype, not a distributed system.
 
 ### 1.3 Objectives
 
@@ -175,26 +176,32 @@ been implemented or experimentally evaluated.
    cooperative perception, with edge offloading as a supporting option.
 5. Develop a feasibility-assessment and evaluation framework for a future
    prototype.
+6. Implement and evaluate an initial CARLA data-capture, perception-latency,
+   and steering baseline, and identify its limitations before extending to
+   cooperative perception.
 
 ### 1.4 Scope and report organization
 
-The scope is a literature-stage study of distributed edge AI for autonomous
-vehicles, with cooperative perception as the primary technical direction.
-It does not claim a completed implementation or new experimental
-measurements. Hardware, software, datasets, and final task placement remain
-to be confirmed. Chapter 2 surveys the literature and vehicle workloads;
-Chapter 3 presents the architecture, setup, and evaluation framework;
-Chapter 4 discusses literature-based feasibility and limitations; and
-Chapter 5 concludes and identifies future work. Federated learning is
-secondary and not included in the primary online prototype.
+The report combines a literature review with preliminary CARLA experiments.
+The implemented work is currently a single-vehicle simulation pipeline for
+ground-truth camera-label projection, three-camera data capture, YOLO
+detection benchmarking, and a PilotNet-style steering baseline. It does
+not yet implement V2V/V2I message exchange, cooperative fusion, or edge
+offloading. Chapter 2 surveys the literature and vehicle workloads;
+Chapter 3 describes the proposed distributed architecture and the completed
+pilot methodology; Chapter 4 presents both literature findings and measured
+CARLA progress; and Chapter 5 summarizes limitations and next steps.
+Federated learning remains a secondary literature topic.
 
 The six phases are: (1) learning Edge AI and autonomous-vehicle systems,
 (2) reviewing cooperative-perception literature, (3) conducting small-scale
-multi-agent workload experiments, (4) assessing a cooperative
+simulation and data-gathering experiments, (4) assessing a cooperative
 vehicle--edge prototype,
 (5) implementing the selected system, and (6) testing and refining it.
-Current work focuses on Phases 1 and 2; the domain is selected, while the
-platform and final design remain open.
+The project is now entering Phase 3, Small-Scale Experiments. Initial CARLA
+simulation and data-gathering work provides a starting point for this phase.
+The multi-agent cooperative-perception design, V2X integration, and
+comparative distributed evaluation remain future work.
 
 ## Chapter 2: Literature Survey
 
@@ -414,9 +421,10 @@ continues if peers or infrastructure disconnect
 
 ## Chapter 3: Methodology
 
-Autonomous vehicles are the selected application domain. This project
-remains at the learning and literature-review stage, so the methods in this
-chapter are proposed rather than completed implementation or experiments.
+The project is entering Phase 3: Small-Scale Experiments. This chapter
+reports the initial CARLA pilot and describes ongoing data gathering and
+planned cooperative-perception experiments. The distributed architecture
+and multi-agent evaluation remain proposed, not implemented.
 
 ### 3.1 Review protocol
 
@@ -462,7 +470,7 @@ research on autonomous-vehicle workloads and connected-vehicle edge systems
 alongside distributed-AI research; compare methods and identify architecture,
 communication, and evaluation questions.
 
-**Phase 3: Small-Scale Experiments.** Inventory available devices, software,
+**Phase 3: Small-Scale Experiments (underway).** Inventory available devices, software,
 datasets, and network connections. Define a bounded cooperative-perception
 benchmark and its vehicle-only baseline, selecting the specific task,
 model, and dataset to fit available resources. Compare with selected edge
@@ -485,11 +493,14 @@ feasibility assessment.
 appropriate functional and performance requirements, analyze limitations,
 and refine the implementation.
 
-The project is currently in Phases 1 and 2. Autonomous vehicles are the
-selected domain and cooperative perception is the selected primary
-workload; the exact perception task, model, platform, and task placement
-remain to be determined.
-Phases 3--6 are planned, not completed.
+The project is now entering Phase 3: Small-Scale Experiments. Initial CARLA
+simulation and data gathering have established a single-vehicle starting
+point: ground-truth camera-label projection, three-camera data capture,
+detector timing, and steering-model experiments. These preliminary
+experiments do not complete Phase 3 or the later implementation and testing
+phases. Multi-agent cooperative perception, edge offloading, and the
+proposed distributed comparisons have not yet been implemented or
+evaluated.
 
 ### 3.3 Proposed feasibility-assessment framework
 
@@ -512,9 +523,12 @@ evaluated for communication delay, bandwidth, freshness, and interruption.
 Federated learning is secondary and concerns periodic or offline model
 training, not primary online inference.
 
-No approach has been implemented; choices of model, payload, fusion
-location, and edge participation remain subject to dataset, hardware,
-latency, quality, and network feasibility.
+The initial CARLA prototype uses simulator ground-truth projections for
+camera-label previews, a YOLO detector for object-detection timing, and a
+PilotNet-style model for steering prediction from recorded autopilot data.
+These components are separate experiments; they do not implement
+cooperative perception. V2X payload, fusion location, edge participation,
+and a suitable cooperative-perception model remain future design choices.
 
 ### 3.5 Proposed system architecture
 
@@ -531,21 +545,24 @@ placement remain undecided.
 
 ### 3.6 Proposed experimental setup
 
-Compare three configurations using consistent input and quality measures:
-A, vehicle-only perception; B, vehicle inference with selected edge
-offloading; and C, multi-agent cooperative perception. Configuration C is
-conditional on verifying a suitable dataset/simulator and available
-compute/software resources. OPV2V is a candidate but must be checked for
-format, licensing, and hardware requirements. Record hardware and software
-versions, model/input configuration, warm-up, repeated-run protocol, and
-network conditions. Vary latency, bandwidth, packet loss, and interruption;
-include an offline run to verify local fallback. Cloud services are
-evaluated only for non-time-critical functions. No live-road safety claim
-is made.
+Our initial CARLA experiments have captured camera data and projected
+simulator ground-truth boxes, measured detector latency, and trained a
+steering model on autopilot examples. Detector timing covers 198 frames per
+configuration and a separate 600-frame GPU FP32 demo rerender; these are
+distinct tests and should not be combined.
+Cooperative evaluation remains proposed: compare vehicle-only perception,
+selected edge offloading, and multi-agent fusion using consistent inputs
+and task-quality measures. Verify OPV2V format, licensing, and resource
+requirements before selecting it. Future tests should document software
+and hardware, model/input setup, repeated runs, and network conditions;
+vary delay, bandwidth, packet loss, and interruption; and verify local
+fallback. No live-road safety claim is made.
 
 ### 3.7 Performance evaluation metrics
 
-These are proposed measurements, not experimental results:
+The following metrics were used or are proposed. Detector timing has been
+measured in the initial CARLA experiments reported in Section 4.2.1; the
+remaining metrics apply to the proposed cooperative evaluation:
 
 | Parameter | Measurement |
 | --- | --- |
@@ -562,8 +579,10 @@ These are proposed measurements, not experimental results:
 
 ## Chapter 4: Results and Discussion
 
-As this is a preliminary, literature-stage study, the results are the
-outcomes of the review and feasibility synthesis, not experimental findings.
+This chapter combines literature findings with preliminary CARLA
+measurements. The simulator results below describe only the tested
+perception and steering pipeline; they do not measure V2V cooperation or
+validate a road vehicle.
 
 ### 4.1 Literature synthesis
 
@@ -604,7 +623,57 @@ placement policy:
 This is an illustrative proposed allocation, not an experimentally selected
 placement policy.
 
-#### 4.2.1 Research gaps identified
+#### 4.2.1 Initial CARLA Prototype Results
+
+Our initial CARLA experiments document four activities:
+
+1. **Ground-truth label projection:** `make_labels.py` projected CARLA
+   ground-truth object boxes into camera images for clear, rain, fog, and
+   night conditions. These boxes are simulator labels, not YOLO predictions.
+2. **Driving-data capture:** `record_drive.py` recorded synchronized left,
+   center, and right camera images. The side cameras are only 0.5 m
+   off-center and can provide nearly duplicate views, limiting the diversity
+   of this three-camera setup.
+3. **Detector timing:** `detect.py` was benchmarked for 198 frames per
+   configuration. Mean end-to-end/model-only latency was 45.1/33.8 ms on
+   CPU FP32, 20.5/9.8 ms on GPU FP32, and 20.3/10.1 ms on GPU FP16. GPU
+   FP32 end-to-end p95 was 24.2 ms. A separate clean rerender of 600 GPU
+   FP32 frames averaged 20.9 ms with 23.2 ms p95. The rerender timings are
+   distinct and are not extra samples from the detector benchmark. Against
+   the 33.3 ms frame-time reference for 30 FPS, the CPU end-to-end mean is
+   above budget while the GPU means are below; this does not establish
+   real-time vehicle performance.
+4. **Steering-model training:** Two 25-epoch runs trained a PilotNet-style
+   model on CARLA autopilot data with 450 validation samples. Run 2 (seed 0)
+   is the primary saved run. Its validation MAE was lowest at epoch 1 and
+   did not improve thereafter; final epoch-25 overall MAE was 0.0863.
+   At epoch 25, MAE was 0.0471 on 303 straight samples, 0.0616 on 35 mild
+   samples, and 0.2004 on 112 turn samples. The always-straight baseline
+   scored 0.0023, 0.0433, and 0.1576 on those same groups, respectively.
+   The overall baseline MAE was 0.0441, compared with 0.0512 at the saved
+   epoch-1 checkpoint and 0.0863 at epoch 25. On turns, the corresponding
+   MAEs were 0.1576, 0.1660, and 0.2004. Turn direction matched the target
+   in 49% of cases. The saved model
+   therefore did not beat the simple baseline. Run 1 was unseeded and is
+   reported separately: its overall validation MAE changed from 0.0589 at
+   epoch 1 to 0.0773 at epoch 25, and its turns-only MAE changed from
+   0.1686 to 0.1922. The two runs should not be pooled.
+
+Our experiment figures show projected ground-truth labels in four
+weather conditions, annotated demo frames, the three camera views, steering
+input and prediction diagnostics, detector latency, and Run 2 training and
+baseline comparisons. Their captions identify them as outputs of the CARLA
+project, not figures reproduced from the cited research papers. The CPU end-to-end mean exceeds the 30 FPS frame-time reference, while the
+two GPU means are below it for this particular simulator setup. The steering
+model did not outperform the always-straight baseline; its lowest validation
+MAE occurred at epoch 1,
+consistent with overfitting in the later training epochs.
+Hardware, CARLA version, detector weights/architecture, and exact
+validation-data collection conditions have not yet been recorded; these
+details should be documented before attempting a reproducible comparison.
+No steering result is a safety claim.
+
+#### 4.2.2 Research gaps identified
 
 The literature identifies open issues that this project can examine:
 
@@ -640,12 +709,15 @@ data-alignment, authenticity, location-privacy, and reliability questions.
 The vehicle therefore retains a local processing path; future safety claims
 require separate validation beyond the proposed performance measurements.
 
-No implementation or measurements have been carried out; this feasibility
-assessment relies on published results. Those results use different
-platforms, workloads, and measurement setups, and should not be compared
-directly. The field is still developing, and the definition of "edge"
-remains unsettled. Open challenges include resource constraints, security
-threats, scalability, and communication overhead.
+Initial implementation and measurements have been carried out in CARLA,
+but they cover only the camera-label, detector-latency, and steering
+experiments described above. They do not measure cooperative V2V/V2I
+communication, distributed inference, edge offloading, or multi-agent
+perception quality. The detector timing values are specific to their
+hardware, model, and test procedure; literature results and separate
+benchmarks should not be compared as if measured in a common setup. The
+steering model's failure to outperform the always-straight baseline is an
+important limitation, not evidence of autonomous-driving capability.
 
 ## Chapter 5: Conclusion and Future Work
 
@@ -658,14 +730,19 @@ is relevant because the layers have complementary capabilities, but
 communication interruptions, heterogeneity, safety, privacy, and security
 remain unresolved challenges.
 
-Planned work is to verify OPV2V's format, licensing, and resource
-requirements; inventory available devices and software; and establish a
-vehicle-only perception baseline. The team will then compare selected edge
-offloading and, if data and compute permit, multi-agent cooperative
-perception. Evaluation will measure latency, quality, throughput,
-communication volume, reliability, energy where measurable, and resource
-utilization under controlled network conditions. No implementation or
-experimental results are claimed at this stage.
+Completed initial work includes CARLA ground-truth camera-label projection
+in four weather conditions, three-camera driving-data capture, a 198-frame
+per-configuration detector benchmark, a separate 600-frame demo rerender,
+and two steering-model training runs. GPU FP32 detector end-to-end latency
+was 20.5 ms mean and 24.2 ms p95 in its benchmark. The saved steering run
+did not outperform an always-straight baseline and achieved only 49% turn
+direction agreement. Future work should document the software and hardware
+configuration, improve the data and steering baseline, and evaluate
+cooperative perception only after a reproducible vehicle-only baseline is
+established. It should then assess selected edge offloading and, if feasible,
+multi-agent fusion under controlled delay, bandwidth, packet-loss, and
+interruption conditions. These results are preliminary simulator
+measurements; no real-vehicle safety or deployment claim is made.
 
 ## References
 
