@@ -1,0 +1,13 @@
+# KITTI Autonomous Vehicle Motion Control Dependencies
+torch>=2.0.0
+numpy>=1.24.0
+pandas>=2.0.0
+scipy>=1.10.0
+matplotlib>=3.7.0
+opencv-python>=4.8.0
+ursina>=8.0.0
+panda3d>=1.10.14
+highway-env>=1.10.0
+onnx>=1.14.0
+ultralytics>=8.0.0
+

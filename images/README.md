@@ -37,3 +37,9 @@ label projections, demo frames, a recorded camera triplet, steering
 diagnostics, detector timing, and steering-training results. They are
 included in `distributed_edge_ai_report.tex` as our preliminary results,
 not as figures reproduced from the cited research papers.
+
+The `kitti_*.png` figures show project-generated KITTI vehicle motion analysis
+and edge control results authored by Avirup Roy: real-world sensor profiles,
+loss convergence, multi-target distributions, 2D perception dashboard, and 4-perspective
+3D simulation with live HUD. They represent physical benchmark measurements and
+closed-loop trajectory evaluations.

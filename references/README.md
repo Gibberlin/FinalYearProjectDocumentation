@@ -19,6 +19,9 @@ current review are:
 - `04_OPV2V_Cooperative_Perception_Dataset.pdf`
 - `05_Vehicle_to_Everything_Cooperative_Perception_Survey.pdf`
 - `06_CoBEVT_Cooperative_BEV_Segmentation.pdf`
+- `07_KITTI_Vision_Benchmark_Suite.pdf`
+- `08_End_to_End_Learning_for_Self_Driving_Cars.pdf`
+- `09_AV_Motion_Control_Technical_Report.pdf`
 
 The related publisher DOI links that do not have a confirmed direct PDF in
 this collection are listed in `additional_papers.txt`. Inclusion in the

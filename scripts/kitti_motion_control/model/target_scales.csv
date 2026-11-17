@@ -1,0 +1,4 @@
+target,scale
+steering_angle_deg,5.4070225
+throttle_command,0.11978261
+brake_command,0.08728662

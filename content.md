@@ -795,3 +795,40 @@ Core works cited in the report:
     Cooperative Perception for Autonomous Driving*. Proceedings of the IEEE,
     113(5), 443--477, 2025.
     <https://doi.org/10.1109/JPROC.2025.3600903>
+
+
+# Implemented Real-World Motion Control & 3D Edge Simulation (KITTI Benchmark)
+
+**Module Lead:** Avirup Roy (Roll: 232010007010)  
+**Implementation Source:** `scripts/kitti_motion_control/`  
+**Image Assets:** `images/kitti_*.png`  
+
+## 1. Overview & Motivation
+Complementing the CARLA cooperative perception simulation, this subsystem implements and verifies a deterministic, real-time Edge AI vehicle motion controller trained on physical sensor telemetry from the real-world **KITTI Vision Benchmark Suite** [12]. The system bridges the gap between high-level perception and low-level physical actuation, producing continuous steering angles, throttle percentages, and braking demands at sub-millisecond latencies.
+
+## 2. Sensor Extraction & Feature Engineering
+Telemetry was extracted from synchronized KITTI raw drives using an OXTS RT3003 system fusing a 6-DOF IMU and high-accuracy GPS at 100 Hz:
+- **Spatial Curvature:** $\kappa = \frac{\dot{\psi}}{v} = \frac{1}{R}$, allowing the controller to anticipate cornering demands.
+- **Ackermann Kinematics:** Wheelbase $L = 2.7\,\text{m}$, with front steering angle derived as $\delta = \arctan\left(\frac{L \dot{\psi}}{v}\right)$.
+- **Dynamic Perception Context:** Bounding box detections from front cameras (pedestrians, cars, cyclists, trucks) are fused into a 14-dimensional feature vector.
+
+## 3. Balanced Multi-Target Edge Controller (AVControlModel)
+To avoid target gradient dominance where wide steering angles ($\pm 30^\circ$) overwhelm normalized pedal inputs ($[0, 1]$), a persistent target scaling buffer $S = [5.4070, 0.1198, 0.0873]^T$ was integrated into the loss formulation:
+$$\mathcal{L}(\theta) = \frac{1}{B} \sum_{k=1}^B \sum_{j=1}^3 w_j \left( \frac{\hat{y}_{k,j} - y_{k,j}}{S_j} \right)^2$$
+The resulting 4-layer MLP achieves:
+- **Parameter Count:** 3,747 parameters ($18.5\,\text{KB}$ checkpoint).
+- **Inference Latency:** **$0.18\,\text{ms}$** on standard CPU ($> 5,500\,\text{Hz}$ throughput), offering a **99.1% timing margin** on automotive $50\,\text{Hz}$ ($20\,\text{ms}$) control cycles.
+- **Exported Runtimes:** Native support for C++ TorchScript (`av_controller.pt`) and TensorRT/OpenVINO (`av_controller.onnx`).
+
+## 4. Closed-Loop Simulation & Verification
+1. **2D Multi-Lane Highway Simulator (`simulate_highway_drive.py`):**
+   - Verified zero-collision overtaking, adaptive cruising, and gap acceptance up to **$200\,\text{km/h}$**.
+2. **3D Interactive Physics Simulator (`simulate_3d_drive.py`):**
+   - Developed on Panda3D/Ursina running at **60 FPS** on CPU/integrated graphics.
+   - Evaluated on a $623.8\,\text{m}$ analytical track with sweeping curves ($R=75\,\text{m}$), S-chicanes ($R=55\,\text{m}$), and a sharp $90^\circ$ intersection ($R=25\,\text{m}$).
+   - **Maximum Lateral Error:** **$0.464\,\text{m}$** (well within the $3.75\,\text{m}$ lane half-width).
+   - **Cornering Deceleration:** Automatically slowed to $28.5\,\text{km/h}$ for the $90^\circ$ turn and stopped at Point B with $0.00\,\text{km/h}$.
+
+## Additional References
+12. Andreas Geiger, Philip Lenz, Christoph Stiller, and Raquel Urtasun. *Are we ready for Autonomous Driving? The KITTI Vision Benchmark Suite*. IEEE CVPR, 3354--3361, 2012. <http://www.cvlibs.net/publications/Geiger2012CVPR.pdf>
+13. Mariusz Bojarski et al. *End to End Learning for Self-Driving Cars*. NVIDIA Research, arXiv:1604.07316, 2016. <https://arxiv.org/abs/1604.07316>
